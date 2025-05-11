@@ -21,8 +21,9 @@ interface CartItem {
 }
 
 interface ContactInfo {
-  firstName: string;
-  lastName: string;
+  name: string;
+  firstName?: string;
+  lastName?: string;
   email: string;
   phone: string;
   company: string;
@@ -46,6 +47,48 @@ function normalizeField(field: string | string[] | undefined): string | null {
   return null;
 }
 
+// Utility function to validate cart items
+function validateCartItems(items: CartItem[]): string[] {
+  const errors: string[] = [];
+  
+  if (!Array.isArray(items)) {
+    return ['Cart items must be an array'];
+  }
+
+  items.forEach((item, index) => {
+    if (!item.name) errors.push(`Item ${index + 1}: Name is required`);
+    if (!item.selectedColor) errors.push(`Item ${index + 1}: Color is required`);
+    if (typeof item.quantity !== 'number' || item.quantity <= 0) {
+      errors.push(`Item ${index + 1}: Invalid quantity`);
+    }
+    if (typeof item.price !== 'number' || item.price < 0) {
+      errors.push(`Item ${index + 1}: Invalid price`);
+    }
+    if (!Array.isArray(item.sizeBreakdown)) {
+      errors.push(`Item ${index + 1}: Size breakdown must be an array`);
+    } else {
+      item.sizeBreakdown.forEach((size, sizeIndex) => {
+        if (!size.size) errors.push(`Item ${index + 1}, Size ${sizeIndex + 1}: Size is required`);
+        if (typeof size.quantity !== 'number' || size.quantity <= 0) {
+          errors.push(`Item ${index + 1}, Size ${sizeIndex + 1}: Invalid quantity`);
+        }
+      });
+    }
+  });
+
+  return errors;
+}
+
+// Utility function to sanitize input
+function sanitizeInput(input: string): string {
+  return input
+    .trim()
+    .replace(/[<>]/g, '') // Remove potential HTML tags
+    .replace(/[&]/g, '&amp;') // Escape ampersands
+    .replace(/["]/g, '&quot;') // Escape quotes
+    .replace(/[']/g, '&#x27;'); // Escape single quotes
+}
+
 const sendOrderNotification = async (data: OrderData, logoFile: formidable.File | undefined): Promise<boolean> => {
   try {
     // Create a test account if you don&apos;t have real credentials
@@ -61,35 +104,53 @@ const sendOrderNotification = async (data: OrderData, logoFile: formidable.File 
       },
     });
 
-    const cartItemsHtml = data.cartItems
+    // Sanitize data before using in email
+    const sanitizedData = {
+      ...data,
+      firstName: sanitizeInput(data.firstName),
+      lastName: sanitizeInput(data.lastName),
+      email: sanitizeInput(data.email),
+      phone: sanitizeInput(data.phone),
+      company: sanitizeInput(data.company),
+      notes: data.notes ? sanitizeInput(data.notes) : undefined,
+    };
+
+    const cartItemsHtml = sanitizedData.cartItems
       .map((item) => `
         <tr>
-          <td>${item.name}</td>
-          <td>${item.selectedColor}</td>
+          <td>${sanitizeInput(item.name)}</td>
+          <td>${sanitizeInput(item.selectedColor)}</td>
           <td>${item.quantity}</td>
           <td>$${(item.price * item.quantity).toFixed(2)}</td>
         </tr>
         ${item.sizeBreakdown.map((size) => `
           <tr>
             <td colspan="2"></td>
-            <td>Size ${size.size}</td>
+            <td>Size ${sanitizeInput(size.size)}</td>
             <td>${size.quantity} units</td>
           </tr>
         `).join('')}
       `)
       .join('');
 
-    const totalAmount = data.cartItems.reduce((total, item) => 
+    const totalAmount = sanitizedData.cartItems.reduce((total, item) => 
       total + (item.price * item.quantity), 0
     );
 
     // Prepare attachments if logo exists
     const attachments = [];
     if (logoFile?.filepath) {
-      attachments.push({
-        filename: logoFile.originalFilename || 'company-logo',
-        content: fs.createReadStream(logoFile.filepath)
-      });
+      try {
+        // Verify file exists and is readable
+        await fs.promises.access(logoFile.filepath, fs.constants.R_OK);
+        attachments.push({
+          filename: sanitizeInput(logoFile.originalFilename || 'company-logo'),
+          content: fs.createReadStream(logoFile.filepath)
+        });
+      } catch (error) {
+        console.error('Error accessing logo file:', error);
+        // Continue without the logo if there's an error
+      }
     }
 
     // Send notification to admin
@@ -101,10 +162,10 @@ const sendOrderNotification = async (data: OrderData, logoFile: formidable.File 
         <h2>New Order Received</h2>
         
         <h3>Customer Information:</h3>
-        <p><strong>Name:</strong> ${data.firstName} ${data.lastName}</p>
-        <p><strong>Email:</strong> ${data.email}</p>
-        <p><strong>Phone:</strong> ${data.phone}</p>
-        <p><strong>Company:</strong> ${data.company}</p>
+        <p><strong>Name:</strong> ${sanitizedData.firstName} ${sanitizedData.lastName}</p>
+        <p><strong>Email:</strong> ${sanitizedData.email}</p>
+        <p><strong>Phone:</strong> ${sanitizedData.phone}</p>
+        <p><strong>Company:</strong> ${sanitizedData.company}</p>
         
         <h3>Order Details:</h3>
         <table border="1" cellpadding="5" style="border-collapse: collapse;">
@@ -121,7 +182,7 @@ const sendOrderNotification = async (data: OrderData, logoFile: formidable.File 
           </tr>
         </table>
         
-        <p><strong>Additional Notes:</strong> ${data.notes || 'None'}</p>
+        <p><strong>Additional Notes:</strong> ${sanitizedData.notes || 'None'}</p>
         ${logoFile ? '<p><strong>Logo:</strong> Attached to this email</p>' : ''}
         
         <p style="color: #666; font-style: italic;">This is an automated notification. Please review the order details in your admin dashboard.</p>
@@ -132,7 +193,7 @@ const sendOrderNotification = async (data: OrderData, logoFile: formidable.File 
     // Send confirmation to customer
     const customerEmail = await transporter.sendMail({
       from: '"DirectPromo" <orders@directpromo.com>',
-      to: data.email,
+      to: sanitizedData.email,
       subject: 'Order Confirmation - DirectPromo',
       html: `
         <h2>Thank you for your order!</h2>
@@ -187,6 +248,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       keepExtensions: true,
       maxFileSize: 10 * 1024 * 1024, // 10MB
       maxTotalFileSize: 10 * 1024 * 1024, // 10MB
+      filter: ({ mimetype }) => {
+        // Only allow image files
+        return mimetype?.startsWith('image/') ?? false;
+      }
     });
 
     // Parse the form
@@ -242,31 +307,86 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return res.status(400).json({ error: 'Invalid order details' });
     }
 
+    // Validate cart items
+    const cartValidationErrors = validateCartItems(orderDetails);
+    if (cartValidationErrors.length > 0) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid cart items',
+        details: cartValidationErrors
+      });
+    }
+
     // Process the form data
-    const name = contactInfo.name || '';
+    const name = sanitizeInput(contactInfo.name);
     const [firstName, ...rest] = name.split(' ');
     const lastName = rest.join(' ');
 
     const orderData: OrderData = {
-      firstName: contactInfo.firstName || firstName || '',
-      lastName: contactInfo.lastName || lastName || '',
-      email: contactInfo.email,
-      phone: contactInfo.phone,
-      company: contactInfo.company,
-      notes: contactInfo.notes,
+      firstName: contactInfo.firstName ? sanitizeInput(contactInfo.firstName) : firstName || '',
+      lastName: contactInfo.lastName ? sanitizeInput(contactInfo.lastName) : lastName || '',
+      email: sanitizeInput(contactInfo.email),
+      phone: sanitizeInput(contactInfo.phone),
+      company: sanitizeInput(contactInfo.company),
+      notes: contactInfo.notes ? sanitizeInput(contactInfo.notes) : undefined,
       cartItems: orderDetails
     };
 
-    // Validate required fields
-    if (!orderData.firstName || !orderData.email || !orderData.cartItems?.length) {
+    // Validate required fields with more specific error messages
+    const validationErrors: string[] = [];
+    
+    if (!orderData.firstName) {
+      validationErrors.push('First name is required');
+    }
+    if (!orderData.email) {
+      validationErrors.push('Email is required');
+    }
+    if (!orderData.phone) {
+      validationErrors.push('Phone number is required');
+    }
+    if (!orderData.company) {
+      validationErrors.push('Company name is required');
+    }
+    if (!orderData.cartItems?.length) {
+      validationErrors.push('Cart is empty');
+    }
+
+    if (validationErrors.length > 0) {
       return res.status(400).json({
         success: false,
-        error: 'Missing required fields'
+        error: 'Validation failed',
+        details: validationErrors
+      });
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(orderData.email)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid email format'
+      });
+    }
+
+    // Validate phone format (basic validation)
+    const phoneRegex = /^\+?[\d\s-()]{10,}$/;
+    if (!phoneRegex.test(orderData.phone)) {
+      return res.status(400).json({
+        success: false,
+        error: 'Invalid phone number format'
       });
     }
 
     // Send order notifications with the logo file
-    await sendOrderNotification(orderData, logoFile);
+    try {
+      await sendOrderNotification(orderData, logoFile);
+    } catch (error) {
+      console.error('Error sending notification:', error);
+      return res.status(500).json({
+        success: false,
+        error: 'Failed to send order notification'
+      });
+    }
 
     res.status(200).json({ 
       success: true, 
