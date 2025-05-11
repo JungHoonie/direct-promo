@@ -12,7 +12,14 @@ export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
 
   const handleAddToCart = () => {
-    addToCart(product, selectedSize, selectedColor);
+    // Construct CartItem
+    const cartItem = {
+      ...product,
+      selectedColor,
+      sizeBreakdown: [{ size: selectedSize, quantity: 1 }],
+      quantity: 1,
+    };
+    addToCart(cartItem);
   };
 
   return (
