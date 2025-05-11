@@ -6,6 +6,7 @@ import CartIcon from "@/components/CartIcon";
 import Link from "next/link";
 import Header from "@/components/Header";
 import { useState } from 'react';
+import Image from 'next/image';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -58,7 +59,6 @@ const categories = [
 
 export default function Home() {
   // Logo upload state
-  const [logo, setLogo] = useState<string | null>(null);
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
 
   // Apparel mockup images (replace with your own or use placeholders)
@@ -78,7 +78,6 @@ export default function Home() {
         setLogoPreview(reader.result as string);
       };
       reader.readAsDataURL(file);
-      setLogo(file.name);
     } else {
       alert('Please upload a PNG, JPG, or SVG image.');
     }
@@ -107,16 +106,19 @@ export default function Home() {
               <p className="text-xl mb-8 text-gray-700">
                 Transform your logo into memorable merchandise that makes a lasting impression.
               </p>
-              <a href="#contact" className="bg-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors w-full md:w-auto block text-center md:inline-block">
+              <Link href="#contact" className="bg-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors w-full md:w-auto block text-center md:inline-block">
                 Contact Us
-              </a>
+              </Link>
             </div>
             {/* Right: Hero Image */}
             <div className="flex-1 h-64 md:h-[500px] w-full md:w-auto relative mb-8 md:mb-0">
-              <img
-                src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=900&q=80"
-                alt="Hero"
-                className="w-full h-full object-cover rounded-lg shadow-lg"
+              <Image
+                src="/images/hero.jpg"
+                alt="Custom promotional products"
+                width={1200}
+                height={600}
+                className="w-full h-full object-cover"
+                priority
               />
             </div>
           </div>
@@ -141,10 +143,12 @@ export default function Home() {
                 <Link href={`/category/${category.id}`} key={category.id}>
                   <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200 cursor-pointer h-full w-80 flex flex-col">
                     <div className="relative w-full pt-[75%] rounded-lg overflow-hidden mb-4">
-                      <img 
+                      <Image 
                         src={category.image}
                         alt={category.name}
                         className="absolute top-0 left-0 w-full h-full object-cover"
+                        width={320}
+                        height={240}
                       />
                     </div>
                     <h3 className="text-xl font-semibold mb-2 text-gray-900">{category.name}</h3>
@@ -226,7 +230,7 @@ export default function Home() {
             <div className="space-y-4">
               {/* FAQ Accordion */}
               <details className="bg-gray-50 rounded-lg shadow p-6 group">
-                <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">I don't see the type of apparel I want — can you source other items?</summary>
+                <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">I don&apos;t see the type of apparel I want — can you source other items?</summary>
                 <p className="mt-2 text-gray-700">Yes! While our website showcases a curated selection of popular products, we have access to thousands more through our trusted suppliers. Whether you're looking for a specific brand, cut, fabric, or specialty item, just reach out — we'll be happy to help you find the perfect fit.</p>
               </details>
               <details className="bg-gray-50 rounded-lg shadow p-6 group">
@@ -257,7 +261,7 @@ export default function Home() {
         <section id="contact" className="py-20 bg-gray-50">
           <div className="container mx-auto px-4 max-w-2xl">
             <h2 className="text-3xl font-bold text-center mb-4 text-gray-900">Ready to Get Started?</h2>
-            <p className="text-center text-lg text-gray-700 mb-8">Fill out the form below or call us at <a href="tel:5551234567" className="text-red-600 font-semibold hover:underline">(555) 123-4567</a> to get your custom quote.</p>
+            <p className="text-center text-lg text-gray-700 mb-8">Fill out the form below or call us at <a href="tel:+15551234567" className="text-red-600 font-semibold hover:underline">(555) 123-4567</a> to get your custom quote.</p>
             <form className="bg-white rounded-lg shadow-md p-8 space-y-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
@@ -289,17 +293,17 @@ export default function Home() {
               <div>
                 <h3 className="text-xl font-semibold mb-4 text-red-600">Quick Links</h3>
                 <ul className="space-y-2">
-                  <li><a href="#" className="hover:text-red-500 transition-colors">About Us</a></li>
-                  <li><a href="#" className="hover:text-red-500 transition-colors">Products</a></li>
-                  <li><a href="#" className="hover:text-red-500 transition-colors">Contact</a></li>
+                  <li><Link href="#about" className="hover:text-red-500 transition-colors">About Us</Link></li>
+                  <li><Link href="#products" className="hover:text-red-500 transition-colors">Products</Link></li>
+                  <li><Link href="#contact" className="hover:text-red-500 transition-colors">Contact</Link></li>
                 </ul>
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-4 text-red-600">Follow Us</h3>
                 <div className="flex space-x-4">
-                  <a href="#" className="hover:text-red-500 transition-colors">LinkedIn</a>
-                  <a href="#" className="hover:text-red-500 transition-colors">Twitter</a>
-                  <a href="#" className="hover:text-red-500 transition-colors">Facebook</a>
+                  <Link href="https://linkedin.com" className="hover:text-red-500 transition-colors">LinkedIn</Link>
+                  <Link href="https://twitter.com" className="hover:text-red-500 transition-colors">Twitter</Link>
+                  <Link href="https://facebook.com" className="hover:text-red-500 transition-colors">Facebook</Link>
                 </div>
               </div>
             </div>

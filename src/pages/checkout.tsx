@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
+import Image from 'next/image';
 
 interface ContactInfo {
   name: string;
@@ -172,9 +173,11 @@ export default function Checkout() {
                     <div className="space-y-1 text-center">
                       {logoPreview ? (
                         <div className="mb-4">
-                          <img
+                          <Image
                             src={logoPreview}
                             alt="Logo preview"
+                            width={128}
+                            height={128}
                             className="mx-auto h-32 w-auto"
                           />
                           <button

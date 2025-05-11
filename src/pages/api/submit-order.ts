@@ -67,7 +67,7 @@ const saveFile = async (file: formidable.File | undefined): Promise<string | nul
 
 const sendOrderNotification = async (data: OrderData, logoFile: formidable.File | undefined): Promise<boolean> => {
   try {
-    // Create a test account if you don't have real credentials
+    // Create a test account if you don&apos;t have real credentials
     const testAccount = await nodemailer.createTestAccount();
 
     const transporter = nodemailer.createTransport({
@@ -174,7 +174,7 @@ const sendOrderNotification = async (data: OrderData, logoFile: formidable.File 
         
         <p><em>Note: Final pricing may vary based on customization options and quantity.</em></p>
         
-        <p>If you have any questions, please don't hesitate to contact us.</p>
+        <p>If you have any questions, please don&apos;t hesitate to contact us.</p>
         
         <p>Best regards,<br>The DirectPromo Team</p>
       `,

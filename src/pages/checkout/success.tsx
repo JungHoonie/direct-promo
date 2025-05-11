@@ -65,12 +65,12 @@ export default function CheckoutSuccess() {
               A confirmation email has been sent to your email address with the order details.
             </p>
             <p className="text-sm">
-              Please check your spam folder if you don't see the email in your inbox.
+              Please check your spam folder if you don&apos;t see the email in your inbox.
             </p>
           </div>
 
           <p>
-            If you have any questions, please don't hesitate to contact us.
+            If you have any questions, please don&apos;t hesitate to contact us.
           </p>
         </div>
 

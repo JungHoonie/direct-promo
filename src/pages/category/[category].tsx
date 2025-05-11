@@ -4,6 +4,7 @@ import { products } from '@/data/products';
 import ProductCard from '@/components/ProductCard';
 import Link from 'next/link';
 import CartIcon from '@/components/CartIcon';
+import Image from 'next/image';
 
 export default function CategoryPage() {
   const router = useRouter();
@@ -94,10 +95,12 @@ export default function CategoryPage() {
               <div key={product.id} className="bg-white rounded-lg overflow-hidden shadow-md">
                 <Link href={`/product/${product.id}`}>
                   <div className="relative w-full pt-[100%]">
-                    <img 
-                      src={product.image} 
+                    <Image
+                      src={product.image}
                       alt={product.name}
-                      className="absolute top-0 left-0 w-full h-full object-cover"
+                      width={300}
+                      height={200}
+                      className="w-full h-full object-cover rounded-lg"
                     />
                   </div>
                   <div className="p-6">

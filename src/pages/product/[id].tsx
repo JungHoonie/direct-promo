@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { products } from '@/data/products';
 import { useCart } from '@/context/CartContext';
 import CartIcon from '@/components/CartIcon';
+import Image from 'next/image';
 
 interface SizeQuantity {
   size: string;
@@ -114,16 +115,21 @@ export default function ProductDetails() {
           {/* Product Image + Logo Upload */}
           <div className="space-y-4">
             <div className="w-full h-[300px] bg-gray-100 rounded-lg overflow-hidden relative flex items-center justify-center">
-              <img
+              <Image
                 src={isTShirt ? tshirtMockup.image : product.image}
                 alt={product.name}
-                className="w-full h-full object-contain"
+                width={600}
+                height={400}
+                className="w-full h-full object-cover rounded-lg"
+                priority
               />
               {/* Logo overlay */}
               {logoPreview && isTShirt && (
-                <img
+                <Image
                   src={logoPreview}
                   alt="Logo Preview"
+                  width={300}
+                  height={200}
                   style={{
                     position: 'absolute',
                     ...tshirtMockup.logoStyle,
@@ -132,6 +138,7 @@ export default function ProductDetails() {
                     pointerEvents: 'none',
                     opacity: 0.92,
                   }}
+                  className="w-full h-full object-cover rounded-lg"
                 />
               )}
             </div>
