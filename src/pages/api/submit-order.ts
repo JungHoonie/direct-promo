@@ -39,6 +39,13 @@ interface OrderData {
   notes?: string;
 }
 
+// Utility function to normalize form fields
+function normalizeField(field: string | string[] | undefined): string | null {
+  if (Array.isArray(field)) return field[0] ?? null;
+  if (typeof field === 'string') return field;
+  return null;
+}
+
 const sendOrderNotification = async (data: OrderData, logoFile: formidable.File | undefined): Promise<boolean> => {
   try {
     // Create a test account if you don&apos;t have real credentials
@@ -210,11 +217,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Parse the contact information
     let contactInfo: ContactInfo;
     try {
-      const rawContact = Array.isArray(fields.contactInfo)
-        ? fields.contactInfo[0]
-        : fields.contactInfo;
-
-      if (typeof rawContact !== 'string') {
+      const rawContact = normalizeField(fields.contactInfo);
+      if (!rawContact) {
         return res.status(400).json({ error: 'Missing or invalid contact information' });
       }
 
@@ -227,7 +231,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Parse the order details (cart items)
     let orderDetails: CartItem[];
     try {
-      orderDetails = JSON.parse(fields.orderDetails as string);
+      const rawOrder = normalizeField(fields.orderDetails);
+      if (!rawOrder) {
+        return res.status(400).json({ error: 'Missing or invalid order details' });
+      }
+
+      orderDetails = JSON.parse(rawOrder);
     } catch (error) {
       console.error('Error parsing order details:', error);
       return res.status(400).json({ error: 'Invalid order details' });
