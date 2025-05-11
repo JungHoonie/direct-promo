@@ -210,7 +210,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     // Parse the contact information
     let contactInfo: ContactInfo;
     try {
-      contactInfo = JSON.parse(fields.contactInfo as string);
+      const rawContact = Array.isArray(fields.contactInfo)
+        ? fields.contactInfo[0]
+        : fields.contactInfo;
+
+      if (typeof rawContact !== 'string') {
+        return res.status(400).json({ error: 'Missing or invalid contact information' });
+      }
+
+      contactInfo = JSON.parse(rawContact);
     } catch (error) {
       console.error('Error parsing contact info:', error);
       return res.status(400).json({ error: 'Invalid contact information' });
