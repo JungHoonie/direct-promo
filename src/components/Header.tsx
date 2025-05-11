@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import CartIcon from "@/components/CartIcon";
 
 export default function Header() {
