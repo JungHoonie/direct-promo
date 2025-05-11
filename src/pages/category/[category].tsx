@@ -1,9 +1,7 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { products } from '@/data/products';
-import ProductCard from '@/components/ProductCard';
 import Link from 'next/link';
-import CartIcon from '@/components/CartIcon';
 import Image from 'next/image';
 
 export default function CategoryPage() {

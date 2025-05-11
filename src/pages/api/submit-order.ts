@@ -1,7 +1,6 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiRequest, NextApiResponse } from 'next';
 import formidable from 'formidable';
 import fs from 'fs';
-import path from 'path';
 import nodemailer from 'nodemailer';
 
 export const config = {
@@ -39,31 +38,6 @@ interface OrderData {
   company: string;
   notes?: string;
 }
-
-const saveFile = async (file: formidable.File | undefined): Promise<string | null> => {
-  if (!file || !file.filepath) return null;
-  
-  try {
-    const data = fs.readFileSync(file.filepath);
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-    
-    // Create uploads directory if it doesn't exist
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
-    
-    const fileName = `${Date.now()}-${file.originalFilename}`;
-    const filePath = path.join(uploadDir, fileName);
-    
-    fs.writeFileSync(filePath, data);
-    fs.unlinkSync(file.filepath);
-    
-    return `/uploads/${fileName}`;
-  } catch (error) {
-    console.error('Error saving file:', error);
-    return null;
-  }
-};
 
 const sendOrderNotification = async (data: OrderData, logoFile: formidable.File | undefined): Promise<boolean> => {
   try {

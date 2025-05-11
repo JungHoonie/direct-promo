@@ -11,7 +11,7 @@ export default function CheckoutSuccess() {
     if (!router.query.submitted) {
       router.replace('/');
     }
-  }, [router.isReady, router.query.submitted]);
+  }, [router.isReady, router.query.submitted, router]);
 
   if (!router.isReady) return null; // Wait for router to be ready
   if (!router.query.submitted) return null;

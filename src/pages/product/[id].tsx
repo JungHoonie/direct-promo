@@ -4,7 +4,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { products } from '@/data/products';
 import { useCart } from '@/context/CartContext';
-import CartIcon from '@/components/CartIcon';
 import Image from 'next/image';
 
 interface SizeQuantity {
@@ -197,7 +196,7 @@ export default function ProductDetails() {
                 <li>• Pre-shrunk fabric</li>
                 <li>• Seamless collar</li>
                 <li>• Double-needle stitching throughout</li>
-                <li>• Available in men's, women's, and unisex styles</li>
+                <li>• Available in men&apos;s, women&apos;s, and unisex styles</li>
                 <li>• Screen printing, embroidery, or heat transfer options</li>
               </ul>
             </div>
@@ -277,7 +276,7 @@ export default function ProductDetails() {
                 </div>
               ) : (
                 <div className="text-gray-600">
-                  Click 'Customize Quantities' to specify the number of items needed in each size.
+                  Click &apos;Customize Quantities&apos; to specify the number of items needed in each size.
                 </div>
               )}
             </div>

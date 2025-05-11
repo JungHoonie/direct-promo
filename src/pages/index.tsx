@@ -1,22 +1,7 @@
 import Head from "next/head";
-import { Geist, Geist_Mono } from "next/font/google";
-import styles from "@/styles/Home.module.css";
 import { CartProvider } from "@/context/CartContext";
-import CartIcon from "@/components/CartIcon";
 import Link from "next/link";
-import Header from "@/components/Header";
-import { useState } from 'react';
-import Image from 'next/image';
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import Image from "next/image";
 
 // Category data
 const categories = [
@@ -58,31 +43,6 @@ const categories = [
 ].sort((a, b) => a.name.localeCompare(b.name));
 
 export default function Home() {
-  // Logo upload state
-  const [logoPreview, setLogoPreview] = useState<string | null>(null);
-
-  // Apparel mockup images (replace with your own or use placeholders)
-  const apparelMockups = [
-    { label: 'T-Shirt', image: '/images/mockups/tshirt.png' },
-    { label: 'Hoodie', image: '/images/mockups/hoodie.png' },
-    { label: 'Hat', image: '/images/mockups/hat.png' },
-  ];
-  const [mockupIndex, setMockupIndex] = useState(0);
-
-  // Handle logo upload
-  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file && ['image/png', 'image/jpeg', 'image/svg+xml'].includes(file.type)) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setLogoPreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    } else {
-      alert('Please upload a PNG, JPG, or SVG image.');
-    }
-  };
-
   return (
     <CartProvider>
       <div className="min-h-screen bg-white">
@@ -177,21 +137,21 @@ export default function Home() {
               {/* Testimonial 1 */}
               <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center text-center">
                 <div className="text-yellow-400 text-xl mb-2">⭐️⭐️⭐️⭐️⭐️</div>
-                <p className="text-gray-700 mb-4">“The custom-branded pens we ordered were a hit at our trade show! Excellent quality, fast turnaround, and fantastic customer service. Highly recommend!”</p>
+                <p className="text-gray-700 mb-4">&quot;The custom-branded pens we ordered were a hit at our trade show! Excellent quality, fast turnaround, and fantastic customer service. Highly recommend!&quot;</p>
                 <div className="font-semibold text-gray-900">Alex M.</div>
                 <div className="text-sm text-gray-500">Marketing Manager</div>
               </div>
               {/* Testimonial 2 */}
               <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center text-center">
                 <div className="text-yellow-400 text-xl mb-2">⭐️⭐️⭐️⭐️⭐️</div>
-                <p className="text-gray-700 mb-4">“The branded pens we ordered from Direct Promo were a huge success at our trade show! Roger made the process so easy, and the quality exceeded our expectations. Will order again soon!”</p>
+                <p className="text-gray-700 mb-4">&quot;The branded pens we ordered from Direct Promo were a huge success at our trade show! Roger made the process so easy, and the quality exceeded our expectations. Will order again soon!&quot;</p>
                 <div className="font-semibold text-gray-900">Samantha T.</div>
                 <div className="text-sm text-gray-500">Business Owner</div>
               </div>
               {/* Testimonial 3 */}
               <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center text-center">
                 <div className="text-yellow-400 text-xl mb-2">⭐️⭐️⭐️⭐️⭐️</div>
-                <p className="text-gray-700 mb-4">“We loved the custom mugs from Direct Promo! The logo was sharp, the mugs were durable, and Roger ensured everything arrived on time. Exceptional service all around!”</p>
+                <p className="text-gray-700 mb-4">&quot;We loved the custom mugs from Direct Promo! The logo was sharp, the mugs were durable, and Roger ensured everything arrived on time. Exceptional service all around!&quot;</p>
                 <div className="font-semibold text-gray-900">James L.</div>
                 <div className="text-sm text-gray-500">Event Coordinator</div>
               </div>
@@ -231,11 +191,11 @@ export default function Home() {
               {/* FAQ Accordion */}
               <details className="bg-gray-50 rounded-lg shadow p-6 group">
                 <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">I don&apos;t see the type of apparel I want — can you source other items?</summary>
-                <p className="mt-2 text-gray-700">Yes! While our website showcases a curated selection of popular products, we have access to thousands more through our trusted suppliers. Whether you're looking for a specific brand, cut, fabric, or specialty item, just reach out — we'll be happy to help you find the perfect fit.</p>
+                <p className="mt-2 text-gray-700">Yes! While our website showcases a curated selection of popular products, we have access to thousands more through our trusted suppliers. Whether you&apos;re looking for a specific brand, cut, fabric, or specialty item, just reach out — we&apos;ll be happy to help you find the perfect fit.</p>
               </details>
               <details className="bg-gray-50 rounded-lg shadow p-6 group">
                 <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">What are the expected delivery times?</summary>
-                <p className="mt-2 text-gray-700">Delivery timelines typically range from 7 to 15 business days, depending on the product, quantity, and customization required. Rush orders may be available upon request. Once you request a quote, we'll provide a clear timeline with estimated delivery dates tailored to your order.</p>
+                <p className="mt-2 text-gray-700">Delivery timelines typically range from 7 to 15 business days, depending on the product, quantity, and customization required. Rush orders may be available upon request. Once you request a quote, we&apos;ll provide a clear timeline with estimated delivery dates tailored to your order.</p>
               </details>
               <details className="bg-gray-50 rounded-lg shadow p-6 group">
                 <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">Who are your suppliers?</summary>
@@ -243,15 +203,15 @@ export default function Home() {
               </details>
               <details className="bg-gray-50 rounded-lg shadow p-6 group">
                 <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">Can I see a sample before placing a large order?</summary>
-                <p className="mt-2 text-gray-700">Absolutely. We offer samples on most items so you can review quality, fit, and finish before committing to a larger run. Let us know what you're considering and we'll walk you through the sample request process.</p>
+                <p className="mt-2 text-gray-700">Absolutely. We offer samples on most items so you can review quality, fit, and finish before committing to a larger run. Let us know what you&apos;re considering and we&apos;ll walk you through the sample request process.</p>
               </details>
               <details className="bg-gray-50 rounded-lg shadow p-6 group">
                 <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">What kind of artwork files do you accept?</summary>
-                <p className="mt-2 text-gray-700">We prefer vector files (AI, EPS, or PDF), but we can also work with high-resolution PNG or JPG images. If you're unsure, send us what you have — our design team can help convert your logo or artwork to the required format.</p>
+                <p className="mt-2 text-gray-700">We prefer vector files (AI, EPS, or PDF), but we can also work with high-resolution PNG or JPG images. If you&apos;re unsure, send us what you have — our design team can help convert your logo or artwork to the required format.</p>
               </details>
               <details className="bg-gray-50 rounded-lg shadow p-6 group">
                 <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">Is there a minimum order quantity (MOQ)?</summary>
-                <p className="mt-2 text-gray-700">MOQs vary depending on the product and supplier, but many items start at as few as 12 or 24 units. We'll confirm specific MOQs when you request a quote.</p>
+                <p className="mt-2 text-gray-700">MOQs vary depending on the product and supplier, but many items start at as few as 12 or 24 units. We&apos;ll confirm specific MOQs when you request a quote.</p>
               </details>
             </div>
           </div>
@@ -273,7 +233,7 @@ export default function Home() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                <textarea required rows={4} className="w-full px-3 py-2 border rounded-md" placeholder="Tell us what you're looking for, or ask a question!" />
+                <textarea required rows={4} className="w-full px-3 py-2 border rounded-md" placeholder="Tell us what you&apos;re looking for, or ask a question!" />
               </div>
               <button type="submit" className="w-full bg-red-600 text-white py-3 px-6 rounded-md font-medium hover:bg-red-700 transition-colors">Request a Quote</button>
             </form>
