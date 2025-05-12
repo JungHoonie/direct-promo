@@ -4,6 +4,9 @@ const path = require('path');
 
 // Unsplash image IDs for our products
 const images = {
+  hero: {
+    'hero': 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&h=600&fit=crop&q=85', // Promotional products display
+  },
   categories: {
     'apparel-hero': 'https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=1600&h=600&fit=crop&q=85', // Clothing rack
     'bags-hero': 'https://images.unsplash.com/photo-1547949003-9792a18a2601?w=1600&h=600&fit=crop&q=85', // Collection of bags
@@ -31,8 +34,8 @@ dirs.forEach(dir => {
   }
 });
 
-// Download images
-const downloadImage = (url, filename) => {
+// Download a single image
+function downloadImage(url, filename) {
   return new Promise((resolve, reject) => {
     https.get(url, (response) => {
       if (response.statusCode !== 200) {
@@ -40,25 +43,29 @@ const downloadImage = (url, filename) => {
         return;
       }
 
-      const fileStream = fs.createWriteStream(filename);
-      response.pipe(fileStream);
-
-      fileStream.on('finish', () => {
-        fileStream.close();
+      const file = fs.createWriteStream(filename);
+      response.pipe(file);
+      file.on('finish', () => {
+        file.close();
         console.log(`Downloaded: ${filename}`);
         resolve();
       });
-
-      fileStream.on('error', (err) => {
-        fs.unlink(filename, () => reject(err));
-      });
-    }).on('error', reject);
+    }).on('error', (err) => {
+      fs.unlink(filename, () => {}); // Delete the file if there was an error
+      reject(err);
+    });
   });
-};
+}
 
 // Download all images
 async function downloadAllImages() {
   const downloads = [];
+
+  // Download hero image
+  for (const [name, url] of Object.entries(images.hero)) {
+    const filename = path.join('./public/images', `${name}.jpg`);
+    downloads.push(downloadImage(url, filename));
+  }
 
   // Download category images
   for (const [name, url] of Object.entries(images.categories)) {

@@ -92,13 +92,12 @@ export default function CategoryPage() {
             {categoryProducts.map((product) => (
               <div key={product.id} className="bg-white rounded-lg overflow-hidden shadow-md">
                 <Link href={`/product/${product.id}`}>
-                  <div className="relative w-full pt-[100%]">
+                  <div className="relative w-full h-48">
                     <Image
                       src={product.image}
                       alt={product.name}
-                      width={300}
-                      height={200}
-                      className="w-full h-full object-cover rounded-lg"
+                      fill
+                      className="object-cover rounded-lg"
                     />
                   </div>
                   <div className="p-6">

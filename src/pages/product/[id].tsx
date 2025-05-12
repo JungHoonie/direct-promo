@@ -11,6 +11,26 @@ interface SizeQuantity {
   quantity: number;
 }
 
+const tshirtSuppliers = [
+  {
+    name: "Gildan",
+    url: "https://www.gildanbrands.com/",
+  },
+  {
+    name: "Bella+Canvas",
+    url: "https://www.bellacanvas.com/",
+  },
+  {
+    name: "Next Level Apparel",
+    url: "https://www.nextlevelapparel.com/",
+  },
+  {
+    name: "Hanes",
+    url: "https://www.hanes.com/",
+  },
+  // Add more as needed
+];
+
 export default function ProductDetails() {
   const router = useRouter();
   const { id } = router.query;
@@ -113,9 +133,9 @@ export default function ProductDetails() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Product Image + Logo Upload */}
           <div className="space-y-4">
-            <div className="w-full h-[300px] bg-gray-100 rounded-lg overflow-hidden relative flex items-center justify-center">
+            <div className="w-full h-[500px] bg-gray-100 rounded-lg overflow-hidden relative flex items-center justify-center mt-8">
               <Image
-                src={isTShirt ? tshirtMockup.image : product.image}
+                src={product.image}
                 alt={product.name}
                 width={600}
                 height={400}
@@ -123,21 +143,14 @@ export default function ProductDetails() {
                 priority
               />
               {/* Logo overlay */}
-              {logoPreview && isTShirt && (
+              {logoPreview && (
                 <Image
                   src={logoPreview}
                   alt="Logo Preview"
-                  width={300}
+                  width={200}
                   height={200}
-                  style={{
-                    position: 'absolute',
-                    ...tshirtMockup.logoStyle,
-                    objectFit: 'contain',
-                    aspectRatio: 'auto',
-                    pointerEvents: 'none',
-                    opacity: 0.92,
-                  }}
-                  className="w-full h-full object-cover rounded-lg"
+                  className="absolute left-1/2 top-[30%] -translate-x-1/2 -translate-y-1/2 object-contain pointer-events-none opacity-90"
+                  style={{ maxWidth: '60%', maxHeight: '60%' }}
                 />
               )}
             </div>
@@ -178,10 +191,30 @@ export default function ProductDetails() {
                 </button>
               )}
             </div>
+            {/* Suppliers Section for Premium Cotton T-Shirt (moved under image) */}
+            {product.id === 'premium-tshirt' && (
+              <div className="mt-12 mb-8">
+                <h2 className="text-lg font-semibold mb-3">Our T-Shirt Suppliers</h2>
+                <div className="flex flex-wrap gap-3 gap-y-3 items-center">
+                  {tshirtSuppliers.map((supplier) => (
+                    <a
+                      key={supplier.name}
+                      href={supplier.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="min-w-[140px] h-10 flex items-center justify-center px-4 rounded-lg border border-gray-300 bg-white shadow hover:bg-red-50 hover:border-red-400 transition text-base font-medium text-gray-900 text-center"
+                      style={{ textDecoration: 'none' }}
+                    >
+                      {supplier.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Product Info */}
-          <div>
+          <div className="mt-8">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">{product.name}</h1>
             <div className="text-2xl text-gray-900 mb-6">
               From <span className="font-bold">${product.price.toFixed(2)}</span>
@@ -223,62 +256,10 @@ export default function ProductDetails() {
 
             {/* Size Quantities */}
             <div className="mb-8">
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-semibold">Size Breakdown</h2>
-                <button
-                  onClick={() => setIsCustomizing(!isCustomizing)}
-                  className="text-red-600 hover:text-red-700"
-                >
-                  {isCustomizing ? 'Cancel' : 'Customize Quantities'}
-                </button>
+              <h2 className="text-xl font-semibold mb-4">Size Breakdown</h2>
+              <div className="text-gray-600">
+                Minimum order: {product.minOrder} units
               </div>
-
-              {isCustomizing ? (
-                <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    {sizeQuantities.map(({ size, quantity }) => (
-                      <div key={size} className="flex items-center justify-between p-3 border rounded">
-                        <span className="font-medium">{size}</span>
-                        <div className="flex items-center space-x-3">
-                          <button
-                            onClick={() => updateQuantity(size, quantity - 1)}
-                            className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400"
-                          >
-                            -
-                          </button>
-                          <span className="w-12 text-center">{quantity}</span>
-                          <button
-                            onClick={() => updateQuantity(size, quantity + 1)}
-                            className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
-                    <div>
-                      <div className="text-sm text-gray-600">Total Quantity</div>
-                      <div className="text-xl font-bold">{totalQuantity} units</div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-sm text-gray-600">Estimated Price</div>
-                      <div className="text-xl font-bold">${totalPrice.toFixed(2)}</div>
-                      <div className="text-xs text-gray-500">Final price may vary</div>
-                    </div>
-                  </div>
-
-                  <div className="text-sm text-gray-600">
-                    Minimum order: {product.minOrder} units
-                  </div>
-                </div>
-              ) : (
-                <div className="text-gray-600">
-                  Click &apos;Customize Quantities&apos; to specify the number of items needed in each size.
-                </div>
-              )}
             </div>
 
             {/* Add to Cart Button */}

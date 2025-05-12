@@ -56,8 +56,8 @@ export default function Home() {
         {/* Removed duplicate nav bar. Header is now global. */}
 
         {/* Hero Section */}
-        <section id="hero" className="relative h-auto md:h-[600px] bg-gradient-to-r from-gray-100 to-white flex flex-col-reverse md:flex-row items-center gap-8 px-4 py-8 md:py-0">
-          <div className="container mx-auto flex flex-col-reverse md:flex-row h-full items-center gap-8 p-0 md:p-0">
+        <section id="hero" className="relative min-h-[600px] bg-gradient-to-r from-gray-100 to-white flex flex-col-reverse md:flex-row items-center gap-8 px-4 py-8 md:py-0 pt-24 md:pt-32">
+          <div className="container mx-auto flex flex-col-reverse md:flex-row items-center gap-8 p-0 md:p-0">
             {/* Left: Text Content */}
             <div className="flex-1 pr-0 md:pr-8 w-full md:w-auto">
               <h1 className="text-5xl font-bold mb-6 text-gray-900">
@@ -71,7 +71,7 @@ export default function Home() {
               </Link>
             </div>
             {/* Right: Hero Image */}
-            <div className="flex-1 h-64 md:h-[500px] w-full md:w-auto relative mb-8 md:mb-0">
+            <div className="flex-1 h-64 md:h-[400px] w-full md:w-auto relative mb-8 md:mb-0 overflow-hidden rounded-lg">
               <Image
                 src="/images/hero.jpg"
                 alt="Custom promotional products"
@@ -98,26 +98,29 @@ export default function Home() {
         <section id="products" className="py-20 bg-white">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">Our Product Categories</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
               {categories.map((category) => (
                 <Link href={`/category/${category.id}`} key={category.id}>
-                  <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200 cursor-pointer h-full w-80 flex flex-col">
-                    <div className="relative w-full pt-[75%] rounded-lg overflow-hidden mb-4">
+                  <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200 cursor-pointer w-80 flex flex-col overflow-hidden">
+                    {/* Image at the very top */}
+                    <div className="relative w-full h-48">
                       <Image 
                         src={category.image}
                         alt={category.name}
-                        className="absolute top-0 left-0 w-full h-full object-cover"
-                        width={320}
-                        height={240}
+                        fill
+                        className="object-cover"
                       />
                     </div>
-                    <h3 className="text-xl font-semibold mb-2 text-gray-900">{category.name}</h3>
-                    <p className="text-gray-600 mb-4">{category.description}</p>
-                    <div className="flex justify-between items-center mt-auto">
-                      <span className="text-sm text-gray-500">{category.count} products</span>
-                      <button className="bg-red-600 text-white px-4 py-2 rounded font-semibold hover:bg-red-700 transition-colors text-sm flex items-center gap-1">
-                        View All
-                      </button>
+                    {/* Card Content */}
+                    <div className="p-6">
+                      <h3 className="text-xl font-semibold mb-2 text-gray-900">{category.name}</h3>
+                      <p className="text-gray-600 mb-4">{category.description}</p>
+                      <div className="flex justify-between items-center mt-auto">
+                        <span className="text-sm text-gray-500">{category.count} products</span>
+                        <button className="bg-red-600 text-white px-4 py-2 rounded font-semibold hover:bg-red-700 transition-colors text-sm flex items-center gap-1">
+                          View All
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </Link>
