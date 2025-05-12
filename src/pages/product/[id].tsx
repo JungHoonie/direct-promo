@@ -42,25 +42,9 @@ export default function ProductDetails() {
   // State for selected color and size quantities
   const [selectedColor, setSelectedColor] = useState<string>('');
   const [sizeQuantities, setSizeQuantities] = useState<SizeQuantity[]>([]);
-  const [isCustomizing, setIsCustomizing] = useState(false);
   // Logo upload state
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
   const [logoError, setLogoError] = useState<string | null>(null);
-
-  // Only show t-shirt mockup for t-shirt products
-  const isTShirt = product && product.category === 'apparel' && product.name.toLowerCase().includes('shirt');
-  const tshirtMockup = {
-    label: 'T-Shirt',
-    image: 'https://pngimg.com/d/tshirt_PNG5422.png', // Plain white t-shirt PNG with transparent background
-    logoStyle: {
-      top: '36%',
-      left: '36%',
-      width: '25%',
-      maxWidth: '200px',
-      maxHeight: '200px',
-      transform: 'translate(-50%, -50%)',
-    },
-  };
 
   // Initialize size quantities if not set
   if (product && sizeQuantities.length === 0) {
@@ -72,15 +56,6 @@ export default function ProductDetails() {
   }
 
   const totalQuantity = sizeQuantities.reduce((sum, sq) => sum + sq.quantity, 0);
-  const totalPrice = totalQuantity * product.price;
-
-  const updateQuantity = (size: string, quantity: number) => {
-    setSizeQuantities(prev =>
-      prev.map(sq =>
-        sq.size === size ? { ...sq, quantity: Math.max(0, quantity) } : sq
-      )
-    );
-  };
 
   const handleAddToCart = () => {
     if (totalQuantity < product.minOrder) {
@@ -103,7 +78,6 @@ export default function ProductDetails() {
     // Reset form
     setSelectedColor('');
     setSizeQuantities(product.sizes.map(size => ({ size, quantity: 0 })));
-    setIsCustomizing(false);
   };
 
   return (
