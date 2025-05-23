@@ -235,14 +235,14 @@ export default function Home() {
             <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">Our Product Categories</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {allCategories.map((category) => (
-                <Link href={category.isCustom ? "#contact" : `/category/${category.id}`} key={category.id}>
-                  <div className={`bg-white text-[#1F2937] rounded-xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer w-full max-w-[400px] flex flex-col justify-between p-6 md:p-8 overflow-hidden relative min-h-[420px] mx-auto ${category.isCustom ? 'border-2 border-red-200' : ''}`}>
+                <Link href={"isCustom" in category && category.isCustom ? "#contact" : `/category/${category.id}`} key={category.id}>
+                  <div className={`bg-white text-[#1F2937] rounded-xl shadow-lg hover:shadow-xl transition-shadow cursor-pointer w-full max-w-[400px] flex flex-col justify-between p-6 md:p-8 overflow-hidden relative min-h-[420px] mx-auto ${"isCustom" in category && category.isCustom ? 'border-2 border-red-200' : ''}`}>
                     <div className="pb-2">
                       <h3 className="text-2xl font-bold text-[#1F2937] mb-2">{category.name}</h3>
                       <p className="text-base text-gray-700 mb-4">{category.description}</p>
                     </div>
                     <div className="flex-1 flex items-center justify-center">
-                      {category.isCustom ? (
+                      {"isCustom" in category && category.isCustom ? (
                         <div className="relative w-full h-40 flex items-center justify-center">
                           <span className="text-9xl font-bold text-gray-300">?</span>
                         </div>
@@ -258,8 +258,8 @@ export default function Home() {
                       )}
                     </div>
                     <div className="flex justify-end items-end pt-2">
-                      <button className={`${category.isCustom ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-gray-100 hover:bg-red-600 hover:text-white'} text-gray-900 px-5 py-2 rounded-lg font-semibold shadow transition-colors flex items-center gap-2`}>
-                        {category.isCustom ? 'Contact Us' : 'Shop Now'}
+                      <button className={`${"isCustom" in category && category.isCustom ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-gray-100 hover:bg-red-600 hover:text-white'} text-gray-900 px-5 py-2 rounded-lg font-semibold shadow transition-colors flex items-center gap-2`}>
+                        {"isCustom" in category && category.isCustom ? 'Contact Us' : 'Shop Now'}
                       </button>
                     </div>
                   </div>
