@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { products } from '@/data/products';
@@ -12,6 +12,16 @@ interface SizeQuantity {
 }
 
 const tshirtSuppliers = [
+  {
+    name: "Canada Sportswear",
+    url: "https://canadasportswear.com",
+    categories: [
+      { name: "T-shirts", url: "https://canadasportswear.com/collections/t-shirts" },
+      { name: "Outerwear", url: "https://canadasportswear.com/collections/outerwear" },
+      { name: "Workwear", url: "https://canadasportswear.com/collections/workwear" },
+      { name: "Headwear", url: "https://canadasportswear.com/collections/headwear" }
+    ]
+  },
   {
     name: "Gildan",
     url: "https://www.gildanbrands.com/",
@@ -46,10 +56,12 @@ export default function ProductDetails() {
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
   const [logoError, setLogoError] = useState<string | null>(null);
 
-  // Initialize size quantities if not set
-  if (product && sizeQuantities.length === 0) {
-    setSizeQuantities(product.sizes.map(size => ({ size, quantity: 0 })));
-  }
+  // Initialize size quantities if not set (patched infinite loop)
+  useEffect(() => {
+    if (product && sizeQuantities.length === 0) {
+      setSizeQuantities(product.sizes.map(size => ({ size, quantity: 0 })));
+    }
+  }, [product]);
 
   if (!product) {
     return <div>Product not found</div>;
@@ -107,13 +119,13 @@ export default function ProductDetails() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Product Image + Logo Upload */}
           <div className="space-y-4">
-            <div className="w-full h-[500px] bg-gray-100 rounded-lg overflow-hidden relative flex items-center justify-center mt-8">
+            <div className="w-full h-[500px] bg-gray-100 rounded-xl overflow-hidden relative flex items-center justify-center mt-8 shadow-lg">
               <Image
                 src={product.image}
                 alt={product.name}
                 width={600}
                 height={400}
-                className="w-full h-full object-cover rounded-lg"
+                className="w-full h-full object-cover rounded-xl"
                 priority
               />
               {/* Logo overlay */}
@@ -171,18 +183,37 @@ export default function ProductDetails() {
                 <h2 className="text-lg font-semibold mb-3">Our T-Shirt Suppliers</h2>
                 <div className="flex flex-wrap gap-3 gap-y-3 items-center">
                   {tshirtSuppliers.map((supplier) => (
-                    <a
-                      key={supplier.name}
-                      href={supplier.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="min-w-[140px] h-10 flex items-center justify-center px-4 rounded-lg border border-gray-300 bg-white shadow hover:bg-red-50 hover:border-red-400 transition text-base font-medium text-gray-900 text-center"
-                      style={{ textDecoration: 'none' }}
-                    >
-                      {supplier.name}
-                    </a>
+                    <div key={supplier.name} className="flex flex-col gap-2">
+                      <a
+                        href={supplier.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="min-w-[140px] h-10 flex items-center justify-center px-4 rounded-lg border border-gray-300 bg-white shadow hover:bg-red-50 hover:border-red-400 transition text-base font-medium text-gray-900 text-center"
+                        style={{ textDecoration: 'none' }}
+                      >
+                        {supplier.name}
+                      </a>
+                      {supplier.categories && (
+                        <div className="flex flex-wrap gap-2 justify-center">
+                          {supplier.categories.map(category => (
+                            <a
+                              key={category.name}
+                              href={category.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-xs text-gray-600 hover:text-red-600"
+                            >
+                              {category.name}
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   ))}
                 </div>
+                <p className="text-sm text-gray-600 mt-4">
+                  Note: While prices shown on supplier websites are retail rates, we purchase at distributor rates to offer you the best possible pricing.
+                </p>
               </div>
             )}
           </div>

@@ -156,7 +156,7 @@ const sendOrderNotification = async (data: OrderData, logoFile: formidable.File 
     // Send notification to admin
     const adminEmail = await transporter.sendMail({
       from: '"DirectPromo Orders" <orders@directpromo.com>',
-      to: process.env.ADMIN_EMAIL || 'brandon.hoon.lee@gmail.com',
+      to: 'directpromo@rogers.com',
       subject: 'New Order Received - DirectPromo',
       html: `
         <h2>New Order Received</h2>

@@ -75,12 +75,9 @@ export default function CategoryPage() {
             {categoryInfo.description.split('\n').map((line, index) => (
               <p key={index} className="text-xl text-gray-200">{line}</p>
             ))}
-            <button className="mt-8 bg-white text-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center">
+            <Link href="/#contact" className="bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors text-center block mt-6">
               Request a Quote
-              <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -90,14 +87,14 @@ export default function CategoryPage() {
         {categoryProducts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {categoryProducts.map((product) => (
-              <div key={product.id} className="bg-white rounded-lg overflow-hidden shadow-md">
+              <div key={product.id} className="bg-white rounded-xl overflow-hidden shadow-lg">
                 <Link href={`/product/${product.id}`}>
-                  <div className="relative w-full h-48">
+                  <div className="relative w-full h-48 rounded-xl overflow-hidden">
                     <Image
                       src={product.image}
                       alt={product.name}
                       fill
-                      className="object-cover rounded-lg"
+                      className="object-cover rounded-xl"
                     />
                   </div>
                   <div className="p-6">

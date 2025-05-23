@@ -23,8 +23,8 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow border border-gray-200">
-      <div className="h-48 bg-gray-100 rounded-lg mb-4 flex items-center justify-center">
+    <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow border border-gray-200">
+      <div className="h-48 bg-gray-100 rounded-xl mb-4 flex items-center justify-center overflow-hidden">
         {/* Placeholder for product image */}
         <span className="text-gray-400">{product.name}</span>
       </div>

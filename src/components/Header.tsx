@@ -6,16 +6,16 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-white text-black py-4 fixed top-0 left-0 w-full z-50 shadow transition-all">
-      <div className="container mx-auto flex items-center justify-between px-4 lg:px-12">
+    <nav className="bg-white text-black py-0.5 h-20 fixed top-0 left-0 w-full z-50 shadow transition-all">
+      <div className="container mx-auto flex items-center justify-between px-4">
         {/* Logo */}
-        <Link href="/" className="text-2xl font-bold text-red-600 flex-shrink-0">
-          DirectPromo
+        <Link href="/" className="flex items-center flex-shrink-0 h-20" aria-label="DirectPromo Home">
+          <img src="/images/categories/dp_logo_final.png" alt="DirectPromo logo" className="h-10 w-auto" />
         </Link>
         {/* Desktop Nav - Centered */}
         <div className="hidden lg:flex flex-1 justify-center">
-          <div className="flex space-x-8">
-            <Link href="#about" className="hover:text-red-600 font-bold transition-colors">About</Link>
+          <div className="flex space-x-6">
+            <Link href="#about-us" className="hover:text-red-600 font-bold transition-colors">About Us</Link>
             <Link href="#products" className="hover:text-red-600 font-bold transition-colors">Products</Link>
             <Link href="#testimonials" className="hover:text-red-600 font-bold transition-colors">Testimonials</Link>
             <Link href="#faq" className="hover:text-red-600 font-bold transition-colors">FAQ</Link>
@@ -52,7 +52,7 @@ export default function Header() {
       {menuOpen && (
         <div className="lg:hidden bg-white shadow-lg absolute left-0 right-0 top-full z-50 animate-fade-in">
           <div className="flex flex-col items-center py-6 space-y-4">
-            <Link href="#about" className="hover:text-red-600 font-bold text-lg transition-colors" onClick={() => setMenuOpen(false)}>About</Link>
+            <Link href="#about-us" className="hover:text-red-600 font-bold text-lg transition-colors" onClick={() => setMenuOpen(false)}>About Us</Link>
             <Link href="#products" className="hover:text-red-600 font-bold text-lg transition-colors" onClick={() => setMenuOpen(false)}>Products</Link>
             <Link href="#testimonials" className="hover:text-red-600 font-bold text-lg transition-colors" onClick={() => setMenuOpen(false)}>Testimonials</Link>
             <Link href="#faq" className="hover:text-red-600 font-bold text-lg transition-colors" onClick={() => setMenuOpen(false)}>FAQ</Link>
