@@ -82,7 +82,7 @@ export default function Home() {
       }
       setFormSubmitted(true);
       if (formRef.current) formRef.current.reset();
-    } catch (err) {
+    } catch {
       setFormError('Failed to send message. Please try again.');
     }
   };
@@ -417,7 +417,7 @@ export default function Home() {
               <div className="bg-white rounded-lg shadow-md p-8 flex flex-col items-center justify-center space-y-6">
                 <div className="text-green-600 text-3xl mb-2">✓</div>
                 <div className="text-2xl font-bold text-gray-900 mb-2 text-center">Thank you! Your message has been sent.</div>
-                <div className="text-gray-700 text-center mb-4">We appreciate your interest. We'll get back to you as soon as possible.</div>
+                <div className="text-gray-700 text-center mb-4">We appreciate your interest. We&apos;ll get back to you as soon as possible.</div>
                 <button onClick={handleResetForm} className="bg-red-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-red-700 transition-colors">Submit another response</button>
               </div>
             )}
