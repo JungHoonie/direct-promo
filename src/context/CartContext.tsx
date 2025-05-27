@@ -34,17 +34,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const addToCart = (product: CartItem) => {
     setItems(prevItems => {
-      // Find if product with same ID and color exists
       const existingItemIndex = prevItems.findIndex(
         item => item.id === product.id && item.selectedColor === product.selectedColor
       );
 
       if (existingItemIndex >= 0) {
-        // Update existing item's quantities
         const updatedItems = [...prevItems];
         const existingItem = updatedItems[existingItemIndex];
-        
-        // Merge size quantities
+
         const updatedSizeBreakdown = [...existingItem.sizeBreakdown];
         product.sizeBreakdown.forEach(newSize => {
           const existingSizeIndex = updatedSizeBreakdown.findIndex(
@@ -66,7 +63,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         return updatedItems;
       }
 
-      // Add new item
       return [...prevItems, { ...product }];
     });
   };
@@ -100,7 +96,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             0
           );
 
-          // If all sizes are 0, remove the item
           if (newTotalQuantity === 0) {
             return null;
           }
@@ -125,20 +120,22 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const getTotalPrice = () => {
     return items.reduce((total, item) => {
-      return total + (item.price * item.quantity);
+      return total + item.price * item.quantity;
     }, 0);
   };
 
   return (
-    <CartContext.Provider value={{
-      items,
-      addToCart,
-      removeFromCart,
-      updateQuantity,
-      clearCart,
-      getTotalItems,
-      getTotalPrice
-    }}>
+    <CartContext.Provider
+      value={{
+        items,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        clearCart,
+        getTotalItems,
+        getTotalPrice,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
@@ -150,4 +147,4 @@ export function useCart() {
     throw new Error('useCart must be used within a CartProvider');
   }
   return context;
-} 
+}
