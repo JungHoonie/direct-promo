@@ -63,14 +63,28 @@ export default function CartDropdown({ onClose }: CartDropdownProps) {
                     <span className="text-sm text-gray-600">Size {sizeItem.size}</span>
                     <div className="flex items-center space-x-2">
                       <button
-                        onClick={() => updateQuantity(item.id, sizeItem.size, sizeItem.quantity - 1)}
+                        onClick={() =>
+                          updateQuantity(
+                            item.id,
+                            item.selectedColor,
+                            sizeItem.size,
+                            sizeItem.quantity - 1
+                          )
+                        }
                         className="w-6 h-6 rounded border border-gray-300 flex items-center justify-center hover:border-gray-400 text-black"
                       >
                         -
                       </button>
                       <span className="w-8 text-center text-sm text-black">{sizeItem.quantity}</span>
                       <button
-                        onClick={() => updateQuantity(item.id, sizeItem.size, sizeItem.quantity + 1)}
+                        onClick={() =>
+                          updateQuantity(
+                            item.id,
+                            item.selectedColor,
+                            sizeItem.size,
+                            sizeItem.quantity + 1
+                          )
+                        }
                         className="w-6 h-6 rounded border border-gray-300 flex items-center justify-center hover:border-gray-400 text-black"
                       >
                         +

@@ -16,7 +16,12 @@ interface CartContextType {
   items: CartItem[];
   addToCart: (product: CartItem) => void;
   removeFromCart: (productId: string, color: string) => void;
-  updateQuantity: (productId: string, size: string, newQuantity: number) => void;
+  updateQuantity: (
+    productId: string,
+    color: string,
+    size: string,
+    newQuantity: number
+  ) => void;
   clearCart: () => void;
   getTotalItems: () => number;
   getTotalPrice: () => number;
@@ -29,17 +34,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const addToCart = (product: CartItem) => {
     setItems(prevItems => {
-      // Find if product with same ID and color exists
       const existingItemIndex = prevItems.findIndex(
         item => item.id === product.id && item.selectedColor === product.selectedColor
       );
 
       if (existingItemIndex >= 0) {
-        // Update existing item's quantities
         const updatedItems = [...prevItems];
         const existingItem = updatedItems[existingItemIndex];
-        
-        // Merge size quantities
+
         const updatedSizeBreakdown = [...existingItem.sizeBreakdown];
         product.sizeBreakdown.forEach(newSize => {
           const existingSizeIndex = updatedSizeBreakdown.findIndex(
@@ -61,7 +63,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         return updatedItems;
       }
 
-      // Add new item
       return [...prevItems, { ...product }];
     });
   };
@@ -74,32 +75,38 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     );
   };
 
-  const updateQuantity = (productId: string, size: string, newQuantity: number) => {
+  const updateQuantity = (
+    productId: string,
+    color: string,
+    size: string,
+    newQuantity: number
+  ) => {
     setItems(prevItems => {
-      return prevItems.map(item => {
-        if (item.id !== productId) return item;
+      return prevItems
+        .map(item => {
+          if (item.id !== productId || item.selectedColor !== color) return item;
 
-        const updatedSizeBreakdown = item.sizeBreakdown.map(sizeItem => {
-          if (sizeItem.size !== size) return sizeItem;
-          return { ...sizeItem, quantity: Math.max(0, newQuantity) };
-        });
+          const updatedSizeBreakdown = item.sizeBreakdown.map(sizeItem => {
+            if (sizeItem.size !== size) return sizeItem;
+            return { ...sizeItem, quantity: Math.max(0, newQuantity) };
+          });
 
-        const newTotalQuantity = updatedSizeBreakdown.reduce(
-          (sum, size) => sum + size.quantity, 
-          0
-        );
+          const newTotalQuantity = updatedSizeBreakdown.reduce(
+            (sum, sz) => sum + sz.quantity,
+            0
+          );
 
-        // If all sizes are 0, remove the item
-        if (newTotalQuantity === 0) {
-          return null;
-        }
+          if (newTotalQuantity === 0) {
+            return null;
+          }
 
-        return {
-          ...item,
-          sizeBreakdown: updatedSizeBreakdown,
-          quantity: newTotalQuantity
-        };
-      }).filter((item): item is CartItem => item !== null);
+          return {
+            ...item,
+            sizeBreakdown: updatedSizeBreakdown,
+            quantity: newTotalQuantity
+          };
+        })
+        .filter((itm): itm is CartItem => itm !== null);
     });
   };
 
@@ -113,20 +120,22 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const getTotalPrice = () => {
     return items.reduce((total, item) => {
-      return total + (item.price * item.quantity);
+      return total + item.price * item.quantity;
     }, 0);
   };
 
   return (
-    <CartContext.Provider value={{
-      items,
-      addToCart,
-      removeFromCart,
-      updateQuantity,
-      clearCart,
-      getTotalItems,
-      getTotalPrice
-    }}>
+    <CartContext.Provider
+      value={{
+        items,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        clearCart,
+        getTotalItems,
+        getTotalPrice,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
@@ -138,4 +147,4 @@ export function useCart() {
     throw new Error('useCart must be used within a CartProvider');
   }
   return context;
-} 
+}
