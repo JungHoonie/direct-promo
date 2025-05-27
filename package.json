@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest"
   },
   "dependencies": {
     "@types/formidable": "^3.4.5",
@@ -27,6 +28,11 @@
     "eslint-config-next": "15.3.1",
     "postcss": "^8.5.3",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5"
+    "typescript": "^5",
+    "jest": "^29",
+    "@types/jest": "^29",
+    "ts-jest": "^29",
+    "@testing-library/react": "^14",
+    "@testing-library/jest-dom": "^6"
   }
 }
