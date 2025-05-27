@@ -180,7 +180,7 @@ export default function Home() {
                 <h2 className="text-4xl font-bold mb-2 text-[#1F2937]">About Us</h2>
                 <div className="w-16 h-1 bg-red-500 rounded mb-6"></div>
                 <p className="text-lg md:text-xl text-gray-700">
-                  With 25+ years of experience, Roger Crock helps organizations of all size out with high-quality, custom-branded products.<br className="hidden md:block" />
+                  With 25+ years of experience, Roger Crock helps organizations of all <strong>sizes stand out</strong> with high-quality, custom-branded products.<br className="hidden md:block" />
                   <br />
                   Roger will help make your brand shine ensuring a seamless client experience at competitive prices - all delivered with speed, quality, and care.
                 </p>
