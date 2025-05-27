@@ -15,8 +15,13 @@ interface CartItem extends Product {
 interface CartContextType {
   items: CartItem[];
   addToCart: (product: CartItem) => void;
-  removeFromCart: (productId: string) => void;
-  updateQuantity: (productId: string, size: string, newQuantity: number) => void;
+  removeFromCart: (productId: string, color: string) => void;
+  updateQuantity: (
+    productId: string,
+    color: string,
+    size: string,
+    newQuantity: number
+  ) => void;
   clearCart: () => void;
   getTotalItems: () => number;
   getTotalPrice: () => number;
@@ -66,36 +71,47 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const removeFromCart = (productId: string) => {
-    setItems(prevItems => prevItems.filter(item => item.id !== productId));
+  const removeFromCart = (productId: string, color: string) => {
+    setItems(prevItems =>
+      prevItems.filter(
+        item => !(item.id === productId && item.selectedColor === color)
+      )
+    );
   };
 
-  const updateQuantity = (productId: string, size: string, newQuantity: number) => {
+  const updateQuantity = (
+    productId: string,
+    color: string,
+    size: string,
+    newQuantity: number
+  ) => {
     setItems(prevItems => {
-      return prevItems.map(item => {
-        if (item.id !== productId) return item;
+      return prevItems
+        .map(item => {
+          if (item.id !== productId || item.selectedColor !== color) return item;
 
-        const updatedSizeBreakdown = item.sizeBreakdown.map(sizeItem => {
-          if (sizeItem.size !== size) return sizeItem;
-          return { ...sizeItem, quantity: Math.max(0, newQuantity) };
-        });
+          const updatedSizeBreakdown = item.sizeBreakdown.map(sizeItem => {
+            if (sizeItem.size !== size) return sizeItem;
+            return { ...sizeItem, quantity: Math.max(0, newQuantity) };
+          });
 
-        const newTotalQuantity = updatedSizeBreakdown.reduce(
-          (sum, size) => sum + size.quantity, 
-          0
-        );
+          const newTotalQuantity = updatedSizeBreakdown.reduce(
+            (sum, sz) => sum + sz.quantity,
+            0
+          );
 
-        // If all sizes are 0, remove the item
-        if (newTotalQuantity === 0) {
-          return null;
-        }
+          // If all sizes are 0, remove the item
+          if (newTotalQuantity === 0) {
+            return null;
+          }
 
-        return {
-          ...item,
-          sizeBreakdown: updatedSizeBreakdown,
-          quantity: newTotalQuantity
-        };
-      }).filter((item): item is CartItem => item !== null);
+          return {
+            ...item,
+            sizeBreakdown: updatedSizeBreakdown,
+            quantity: newTotalQuantity
+          };
+        })
+        .filter((itm): itm is CartItem => itm !== null);
     });
   };
 
