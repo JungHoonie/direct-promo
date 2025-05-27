@@ -49,7 +49,7 @@ export default function CartDropdown({ onClose }: CartDropdownProps) {
                   <p className="text-sm text-gray-500">Color: {item.selectedColor}</p>
                 </div>
                 <button
-                  onClick={() => removeFromCart(item.id)}
+                  onClick={() => removeFromCart(item.id, item.selectedColor)}
                   className="text-red-500 hover:text-red-700"
                 >
                   Remove
