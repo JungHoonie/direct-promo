@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Script from "next/script";
 import { CartProvider } from "@/context/CartContext";
 import Link from "next/link";
 import Image from "next/image";
@@ -116,15 +117,22 @@ export default function Home() {
           {/* SEO: Canonical URL */}
           <link rel="canonical" href="https://yourdomain.com/" />
           {/* Google Analytics GA4 */}
-          <script async src="https://www.googletagmanager.com/gtag/js?id=G-J2529PY042"></script>
-          <script dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-J2529PY042');
-            `
-          }} />
+          <Script
+            src="https://www.googletagmanager.com/gtag/js?id=G-J2529PY042"
+            strategy="afterInteractive"
+          />
+          <Script
+            id="ga-script"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-J2529PY042');
+              `
+            }}
+          />
           {/* Local Business Schema.org JSON-LD */}
           <script type="application/ld+json" dangerouslySetInnerHTML={{
             __html: JSON.stringify({
