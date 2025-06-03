@@ -3,8 +3,6 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { products } from '@/data/products';
-import { useCart } from '@/context/CartContext';
-import CartIcon from '@/components/CartIcon';
 
 interface SizeQuantity {
   size: string;
@@ -14,7 +12,6 @@ interface SizeQuantity {
 export default function ProductDetails() {
   const router = useRouter();
   const { id } = router.query;
-  const { addToCart } = useCart();
   
   // Find the product
   const product = products.find(p => p.id === id);
@@ -62,33 +59,6 @@ export default function ProductDetails() {
         sq.size === size ? { ...sq, quantity: Math.max(0, quantity) } : sq
       )
     );
-  };
-
-  const handleAddToCart = () => {
-    const minOrder = product?.minOrder ?? 1; // Default to 1 if minOrder is undefined
-    if (totalQuantity < minOrder) {
-      alert(`Minimum order quantity is ${minOrder} units`);
-      return;
-    }
-    if (!selectedColor) {
-      alert('Please select a color');
-      return;
-    }
-
-    // Add to cart with size breakdown
-    addToCart({
-      ...product,
-      selectedColor,
-      sizeBreakdown: sizeQuantities.filter(sq => sq.quantity > 0),
-      quantity: totalQuantity,
-    });
-
-    // Reset form
-    setSelectedColor('');
-    if (product?.sizes) {
-      setSizeQuantities((product?.sizes ?? []).map(size => ({ size, quantity: 0 })));
-    }
-    setIsCustomizing(false);
   };
 
   return (
@@ -206,20 +176,15 @@ export default function ProductDetails() {
 
             {/* Color Selection */}
             <div className="mb-8">
-              <h2 className="text-xl font-extrabold mb-4">Color</h2>
+              <h2 className="text-xl font-extrabold mb-4">Available Colors</h2>
               <div className="flex flex-wrap gap-3">
                 {(product?.colors ?? []).map(color => (
-                  <button
+                  <span
                     key={color}
-                    onClick={() => setSelectedColor(color)}
-                    className={`px-4 py-2 rounded-full border ${
-                      selectedColor === color
-                        ? 'border-red-600 bg-red-50 text-red-600'
-                        : 'border-gray-300 hover:border-gray-400'
-                    }`}
+                    className="px-4 py-2 rounded-full border border-gray-300"
                   >
                     {color}
-                  </button>
+                  </span>
                 ))}
               </div>
             </div>
@@ -227,79 +192,19 @@ export default function ProductDetails() {
             {/* Size Quantities */}
             <div className="mb-8">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-extrabold">Size Breakdown</h2>
-                <button
-                  onClick={() => setIsCustomizing(!isCustomizing)}
-                  className="text-red-600 hover:text-red-700"
-                >
-                  {isCustomizing ? 'Cancel' : 'Customize Quantities'}
-                </button>
+                <h2 className="text-xl font-extrabold">Available Sizes</h2>
               </div>
-
-              {isCustomizing ? (
-                <div className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    {sizeQuantities.map(({ size, quantity }) => (
-                      <div key={size} className="flex items-center justify-between p-3 border rounded">
-                        <span className="font-medium">{size}</span>
-                        <div className="flex items-center space-x-3">
-                          <button
-                            onClick={() => updateQuantity(size, quantity - 1)}
-                            className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400"
-                          >
-                            -
-                          </button>
-                          <span className="w-12 text-center">{quantity}</span>
-                          <button
-                            onClick={() => updateQuantity(size, quantity + 1)}
-                            className="w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center hover:border-gray-400"
-                          >
-                            +
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
-                    <div>
-                      <div className="text-sm text-gray-600">Total Quantity</div>
-                      <div className="text-xl font-bold">{totalQuantity} units</div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-sm text-gray-600">Estimated Price</div>
-                      <div className="text-xl font-bold">${totalPrice.toFixed(2)}</div>
-                      <div className="text-xs text-gray-500">Final price may vary</div>
-                    </div>
-                  </div>
-
-                  <div className="text-sm text-gray-600">
-                    Minimum order: {product?.minOrder ?? 1} units
-                  </div>
-                </div>
-              ) : (
-                <div className="text-gray-600">
-                  Click 'Customize Quantities' to specify the number of items needed in each size.
-                </div>
-              )}
+              <div className="flex flex-wrap gap-3">
+                {(product?.sizes ?? []).map(size => (
+                  <span
+                    key={size}
+                    className="px-4 py-2 rounded-full border border-gray-300"
+                  >
+                    {size}
+                  </span>
+                ))}
+              </div>
             </div>
-
-            {/* Add to Cart Button */}
-            <button
-              onClick={handleAddToCart}
-              disabled={totalQuantity < (product?.minOrder ?? 1) || !selectedColor}
-              className={`w-full py-4 px-8 rounded-lg text-white font-semibold ${
-                totalQuantity >= (product?.minOrder ?? 1) && selectedColor
-                  ? 'bg-red-600 hover:bg-red-700'
-                  : 'bg-gray-400 cursor-not-allowed'
-              }`}
-            >
-              {totalQuantity < (product?.minOrder ?? 1)
-                ? `Minimum ${product?.minOrder ?? 1} units required`
-                : !selectedColor
-                ? 'Select a color'
-                : 'Add to Cart'}
-            </button>
           </div>
         </div>
       </div>
