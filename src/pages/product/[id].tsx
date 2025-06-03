@@ -41,15 +41,6 @@ const tshirtSuppliers = [
   // Add more as needed
 ];
 
-const SUPPLIERS = [
-  'Canada Sportswear',
-  'S&S Activewear',
-  'Stormtech',
-  'AJM International',
-  'Big K Clothing',
-  'Magnus Pen',
-];
-
 export default function ProductDetails() {
   const router = useRouter();
   const { id } = router.query;

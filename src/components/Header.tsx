@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -10,7 +11,7 @@ export default function Header() {
         <div className="flex items-center flex-shrink-0 h-20 pl-4">
           {/* Logo */}
           <Link href="/" aria-label="DirectPromo Home">
-            <img src="/images/categories/dp_logo_final.png" alt="DirectPromo logo" className="h-10 w-auto" />
+            <Image src="/images/categories/dp_logo_final.png" alt="DirectPromo logo" height={40} width={120} className="h-10 w-auto" priority />
           </Link>
         </div>
         {/* Desktop Nav - Centered */}

@@ -409,7 +409,7 @@ export default function Home() {
                 {/* Testimonial 2 */}
                 <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
                   <div className="text-[#FBBF24] text-xl mb-2">⭐️⭐️⭐️⭐️⭐️</div>
-                  <p className="text-gray-700 mb-4">"We ordered branded pens from Direct Promo for our event and they were a big hit! Roger made everything simple, and the pens were top quality. We'll definitely be coming back for our next order!"</p>
+                  <p className="text-gray-700 mb-4">&quot;We ordered branded pens from Direct Promo for our event and they were a big hit! Roger made everything simple, and the pens were top quality. We&apos;ll definitely be coming back for our next order!&quot;</p>
                   <div className="font-semibold text-[#1F2937]">Samantha T.</div>
                   <div className="text-sm text-gray-700">Business Owner</div>
                 </div>
@@ -422,7 +422,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="text-center text-white italic text-lg mt-12">
-                Your brand, our priority — delivered with quality, speed, and care.
+                Your brand, our priority &mdash; delivered with quality, speed, and care.
               </div>
             </div>
           </section>
@@ -501,12 +501,12 @@ export default function Home() {
               <div className="space-y-4">
                 {/* FAQ Accordion */}
                 <details className="bg-white rounded-xl shadow p-6 group">
-                  <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">I don't see the type of apparel I want — can you source other items?</summary>
-                  <p className="mt-2 text-gray-700">Yes! While our website showcases a curated selection of popular products, we have access to thousands more through our trusted suppliers. Whether you're looking for a specific brand, cut, fabric, or specialty item, just reach out — we'll be happy to help you find the perfect fit.</p>
+                  <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">I don&apos;t see the type of apparel I want &mdash; can you source other items?</summary>
+                  <p className="mt-2 text-gray-700">Yes! While our website showcases a curated selection of popular products, we have access to thousands more through our trusted suppliers. Whether you&apos;re looking for a specific brand, cut, fabric, or specialty item, just reach out &mdash; we&apos;ll be happy to help you find the perfect fit.</p>
                 </details>
                 <details className="bg-white rounded-xl shadow p-6 group">
                   <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">What are the expected delivery times?</summary>
-                  <p className="mt-2 text-gray-700">Delivery timelines typically range from 7 to 15 business days, depending on the product, quantity, and customization required. Rush orders may be available upon request. Once you request a quote, we'll provide a clear timeline with estimated delivery dates tailored to your order.</p>
+                  <p className="mt-2 text-gray-700">Delivery timelines typically range from 7 to 15 business days, depending on the product, quantity, and customization required. Rush orders may be available upon request. Once you request a quote, we&apos;ll provide a clear timeline with estimated delivery dates tailored to your order.</p>
                 </details>
                 <details className="bg-white rounded-xl shadow p-6 group">
                   <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">Who are your suppliers?</summary>
@@ -514,15 +514,15 @@ export default function Home() {
                 </details>
                 <details className="bg-white rounded-xl shadow p-6 group">
                   <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">Can I see a sample before placing a large order?</summary>
-                  <p className="mt-2 text-gray-700">Absolutely. We offer samples on most items so you can review quality, fit, and finish before committing to a larger run. Let us know what you're considering and we'll walk you through the sample request process.</p>
+                  <p className="mt-2 text-gray-700">Absolutely. We offer samples on most items so you can review quality, fit, and finish before committing to a larger run. Let us know what you&apos;re considering and we&apos;ll walk you through the sample request process.</p>
                 </details>
                 <details className="bg-white rounded-xl shadow p-6 group">
                   <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">What kind of artwork files do you accept?</summary>
-                  <p className="mt-2 text-gray-700">We prefer vector files (AI, EPS, or PDF), but we can also work with high-resolution PNG or JPG images. If you're unsure, send us what you have — our design team can help convert your logo or artwork to the required format.</p>
+                  <p className="mt-2 text-gray-700">We prefer vector files (AI, EPS, or PDF), but we can also work with high-resolution PNG or JPG images. If you&apos;re unsure, send us what you have &mdash; our design team can help convert your logo or artwork to the required format.</p>
                 </details>
                 <details className="bg-white rounded-xl shadow p-6 group">
                   <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">Is there a minimum order quantity (MOQ)?</summary>
-                  <p className="mt-2 text-gray-700">MOQs vary depending on the product and supplier, but many items start at as few as 12 or 24 units. We'll confirm specific MOQs when you request a quote.</p>
+                  <p className="mt-2 text-gray-700">MOQs vary depending on the product and supplier, but many items start at as few as 12 or 24 units. We&apos;ll confirm specific MOQs when you request a quote.</p>
                 </details>
               </div>
             </div>
