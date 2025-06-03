@@ -3,161 +3,430 @@ import Head from 'next/head';
 import { products } from '@/data/products';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useState } from 'react';
+
+const SUPPLIERS = [
+  'Canada Sportswear',
+  'S&S Activewear',
+  'Stormtech',
+  'Big K Clothing',
+];
+
+const MAX_CARDS = 5;
+
+// List of all suppliers
+const ALL_SUPPLIERS = [
+  'Canada Sportswear',
+  'S&S Activewear',
+  'Stormtech',
+  'AJM International',
+  'Big K Clothing',
+  'Magnus Pen',
+];
+
+const OUTERWEAR_SUPPLIERS = [
+  'Canada Sportswear',
+  'S&S Activewear',
+  'Stormtech',
+  'Big K Clothing',
+];
+
+const HEADWEAR_SUPPLIERS = [
+  'Canada Sportswear',
+  'S&S Activewear',
+  'Stormtech',
+  'Big K Clothing',
+];
+
+const TSHIRT_SUPPLIERS = [
+  'Canada Sportswear',
+  'S&S Activewear',
+  'Stormtech',
+  'Big K Clothing',
+];
+
+const WORKWEAR_SUPPLIERS = [
+  'Canada Sportswear',
+  'S&S Activewear',
+  'Stormtech',
+  'Big K Clothing',
+];
 
 export default function CategoryPage() {
   const router = useRouter();
   const { category } = router.query;
   
+  // Modal state for enlarged image
+  const [modalProduct, setModalProduct] = useState<null | typeof products[0]>(null);
+
   // Filter products by category
   const categoryProducts = products.filter(
     product => product.category === category
   );
+
+  // Group products by supplier
+  const productsBySupplier = categoryProducts.reduce((acc, product) => {
+    const supplier = product.supplier;
+    if (!acc[supplier]) {
+      acc[supplier] = [];
+    }
+    acc[supplier].push(product);
+    return acc;
+  }, {} as Record<string, typeof products>);
   
   // Get category title and description
   const getCategoryInfo = () => {
     switch(category) {
-      case 'apparel':
+      case 'tshirts':
         return {
-          title: 'Apparel Products',
-          description: 'High-quality custom apparel including t-shirts, polos, jackets, and caps.\nPerfect for company uniforms, events, or promotional giveaways.',
-          image: '/images/categories/apparel-hero.jpg'
+          title: 'T-Shirts Collection',
+          description: 'High-quality custom t-shirts from trusted suppliers.\nPerfect for company uniforms, events, or promotional giveaways.',
+          image: '/images/categories/t-shirt_categories.webp'
         };
-      case 'bags':
+      case 'outerwear':
         return {
-          title: 'Bags & Totes',
-          description: 'Professional bags and totes for any occasion.\nCustomize with your logo for trade shows, conferences, or corporate gifts.',
-          image: '/images/categories/bags-hero.jpg'
+          title: 'Outerwear Collection',
+          description: 'Professional outerwear for any occasion.\nCustomize with your logo for trade shows, conferences, or corporate gifts.',
+          image: '/images/categories/outerwear_image.jpeg'
         };
-      case 'tech':
+      case 'workwear':
         return {
-          title: 'Tech Accessories',
-          description: 'Modern tech accessories for the digital age.\nPromote your brand with custom gadgets and tech essentials.',
-          image: '/images/categories/tech-hero.jpg'
+          title: 'Workwear Collection',
+          description: 'Durable workwear for professional environments.\nPromote your brand with custom work apparel.',
+          image: '/images/categories/workwear_dp.webp'
         };
-      case 'drinkware':
+      case 'headwear':
         return {
-          title: 'Drinkware Collection',
-          description: 'Premium drinkware for every beverage need.\nEco-friendly options perfect for corporate sustainability initiatives.',
-          image: '/images/categories/drinkware-hero.jpg'
+          title: 'Headwear Collection',
+          description: 'Premium headwear for every style.\nEco-friendly options perfect for corporate sustainability initiatives.',
+          image: '/images/categories/headwear_img.jpeg'
         };
       default:
         return {
-          title: 'Products',
-          description: 'Browse our collection of high-quality promotional products.\nAll items can be customized with your logo.',
-          image: '/images/categories/default-hero.jpg'
+          title: 'Accessories Collection',
+          description: 'Bags, drinkware, and branded essentials—sustainable extras that make a lasting impression.',
+          image: '/images/categories/accessories_dp.jpeg'
         };
     }
   };
 
   const categoryInfo = getCategoryInfo();
 
+  // Dynamically get suppliers for accessories
+  const accessoriesSuppliers = Array.from(new Set(categoryProducts.filter(p => p.category === 'accessories').map(p => p.supplier)));
+
   return (
     <div className="min-h-screen bg-white">
       <Head>
         <title>{categoryInfo.title} - DirectPromo</title>
-        <meta name="description" content={categoryInfo.description.replace('\n', ' ')} />
+        <meta name="description" content={categoryInfo.description} />
       </Head>
 
-      {/* Top Navigation Bar */}
-      {/* Removed duplicate nav bar. Header is now global. */}
-
-      {/* Category Hero Banner */}
-      <div className="relative h-[400px] bg-gray-900 overflow-hidden">
-        {/* Background Image */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-50"
-          style={{ backgroundImage: `url(${categoryInfo.image})` }}
-        />
-        {/* Content */}
-        <div className="relative container mx-auto px-4 h-full flex items-center">
-          <div className="max-w-2xl text-white">
-            <h1 className="text-5xl font-bold mb-6">{categoryInfo.title}</h1>
-            {categoryInfo.description.split('\n').map((line, index) => (
-              <p key={index} className="text-xl text-gray-200">{line}</p>
-            ))}
-            <Link href="/#contact" className="bg-red-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors text-center block mt-6">
-              Request a Quote
-            </Link>
+      {/* Hero Section */}
+      <div className="relative h-[300px] bg-gray-900">
+        <div className="absolute inset-0">
+          <Image
+            src={categoryInfo.image}
+            alt={categoryInfo.title}
+            fill
+            className="object-cover opacity-50"
+          />
+        </div>
+        <div className="relative h-full flex items-center justify-center">
+          <div className="text-center text-white pt-12 md:pt-20">
+            <h1 className="text-4xl md:text-5xl font-extrabold mb-4">{categoryInfo.title}</h1>
+            <p className="text-xl md:text-2xl max-w-2xl mx-auto whitespace-pre-line">{categoryInfo.description}</p>
           </div>
         </div>
       </div>
 
-      {/* Products Grid */}
       <div className="container mx-auto px-4 py-16">
-        {categoryProducts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {categoryProducts.map((product) => (
-              <div key={product.id} className="bg-white rounded-xl overflow-hidden shadow-lg">
-                <Link href={`/product/${product.id}`}>
-                  <div className="relative w-full h-48 rounded-xl overflow-hidden">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      fill
-                      className="object-cover rounded-xl"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{product.name}</h3>
-                    <div className="flex justify-between items-center mb-4">
-                      <div className="text-gray-900">
-                        <span className="text-sm">From </span>
-                        <span className="text-xl font-bold">${product.price.toFixed(2)}</span>
+        {category === 'tshirts' ? (
+          TSHIRT_SUPPLIERS.map((supplier) => {
+            const supplierProducts = productsBySupplier[supplier] || [];
+            let cards: (typeof supplierProducts[number] | null)[] = [];
+            if (supplier === 'Canada Sportswear') {
+              cards = supplierProducts.slice(0, 4);
+              while (cards.length < 4) {
+                cards.push(null);
+              }
+            } else {
+              cards = supplierProducts.slice(0, 4);
+              while (cards.length < 4) {
+                cards.push(null);
+              }
+            }
+            return (
+              <div key={supplier} className="mb-16">
+                <h2 className="text-2xl font-bold mb-6 text-gray-900">{supplier}</h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                  {cards.map((product, idx) =>
+                    product ? (
+                      <button
+                        key={product.id}
+                        className="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition-shadow border border-gray-100 flex flex-col items-center p-4 min-h-[240px] w-full focus:outline-none group"
+                        onClick={() => setModalProduct(product)}
+                        type="button"
+                      >
+                        <div className="relative w-36 h-36 mb-3 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform">
+                          <Image
+                            src={product.image}
+                            alt={product.name}
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                        <div className="w-full text-base font-semibold text-gray-900 text-center truncate" title={product.name}>{product.name}</div>
+                        {product.brand && <div className="w-full text-xs text-gray-500 text-center truncate" title={product.brand}>{product.brand}</div>}
+                      </button>
+                    ) : (
+                      <div key={idx} className="bg-gray-50 rounded-xl border border-dashed border-gray-200 flex flex-col items-center justify-center min-h-[240px] p-4 opacity-60">
+                        <span className="text-gray-300 text-3xl">—</span>
                       </div>
-                      <div className="text-sm text-gray-600">
-                        Min. {product.minOrder} units
-                      </div>
+                    )
+                  )}
+                  {/* Contact Us Card */}
+                  <Link href="/#contact" className="bg-red-50 border-2 border-red-200 rounded-xl flex flex-col items-center justify-center min-h-[240px] p-4 hover:bg-red-100 transition-colors group">
+                    <div className="flex flex-col items-center">
+                      <svg className="w-10 h-10 text-red-500 mb-2 group-hover:text-red-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M21 10.5V6.75A2.25 2.25 0 0018.75 4.5h-13.5A2.25 2.25 0 003 6.75v10.5A2.25 2.25 0 005.25 19.5h6.75" /><path strokeLinecap="round" strokeLinejoin="round" d="M21 10.5l-9 6-9-6" /></svg>
+                      <span className="text-base font-bold text-red-600">Contact Us</span>
+                      <span className="text-xs text-red-500 text-center">for more options</span>
                     </div>
-                    <div className="w-full bg-gray-900 text-white py-2 rounded text-center hover:bg-gray-800 transition-colors">
-                      View Details
-                    </div>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
               </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <p className="text-xl text-gray-600">No products found in this category.</p>
-            <Link href="/" className="text-red-600 hover:text-red-700 mt-4 inline-block">
-              Return to Home
-            </Link>
-          </div>
-        )}
+            );
+          })
+        ) : category === 'accessories' ? (
+          accessoriesSuppliers.map((supplier) => {
+            const supplierProducts = productsBySupplier[supplier] || [];
+            let cards: (typeof supplierProducts[number] | null)[] = supplierProducts.slice(0, 4);
+            while (cards.length < 4) {
+              cards.push(null);
+            }
+            return (
+              <div key={supplier} className="mb-16">
+                <h2 className="text-2xl font-bold mb-6 text-gray-900">{supplier}</h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                  {cards.map((product, idx) =>
+                    product ? (
+                      <button
+                        key={product.id}
+                        className="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition-shadow border border-gray-100 flex flex-col items-center p-4 min-h-[240px] w-full focus:outline-none group"
+                        onClick={() => setModalProduct(product)}
+                        type="button"
+                      >
+                        <div className="relative w-36 h-36 mb-3 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform">
+                          <Image
+                            src={product.image}
+                            alt={product.name}
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                        <div className="w-full text-base font-semibold text-gray-900 text-center truncate" title={product.name}>{product.name}</div>
+                        {product.brand && <div className="w-full text-xs text-gray-500 text-center truncate" title={product.brand}>{product.brand}</div>}
+                      </button>
+                    ) : (
+                      <div key={idx} className="bg-gray-50 rounded-xl border border-dashed border-gray-200 flex flex-col items-center justify-center min-h-[240px] p-4 opacity-60">
+                        <span className="text-gray-300 text-3xl">—</span>
+                      </div>
+                    )
+                  )}
+                  {/* Contact Us Card */}
+                  <Link href="/#contact" className="bg-red-50 border-2 border-red-200 rounded-xl flex flex-col items-center justify-center min-h-[240px] p-4 hover:bg-red-100 transition-colors group">
+                    <div className="flex flex-col items-center">
+                      <svg className="w-10 h-10 text-red-500 mb-2 group-hover:text-red-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M21 10.5V6.75A2.25 2.25 0 0018.75 4.5h-13.5A2.25 2.25 0 003 6.75v10.5A2.25 2.25 0 005.25 19.5h6.75" /><path strokeLinecap="round" strokeLinejoin="round" d="M21 10.5l-9 6-9-6" /></svg>
+                      <span className="text-base font-bold text-red-600">Contact Us</span>
+                      <span className="text-xs text-red-500 text-center">for more options</span>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            );
+          })
+        ) : category === 'headwear' ? (
+          HEADWEAR_SUPPLIERS.map((supplier) => {
+            const supplierProducts = categoryProducts.filter(p => p.supplier === supplier);
+            let cards: (typeof supplierProducts[number] | null)[] = supplierProducts.slice(0, 4);
+            while (cards.length < 4) {
+              cards.push(null);
+            }
+            return (
+              <div key={supplier} className="mb-16">
+                <h2 className="text-2xl font-bold mb-6 text-gray-900">{supplier}</h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                  {cards.map((product, idx) =>
+                    product ? (
+                      <button
+                        key={product.id}
+                        className="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition-shadow border border-gray-100 flex flex-col items-center p-4 min-h-[240px] w-full focus:outline-none group"
+                        onClick={() => setModalProduct(product)}
+                        type="button"
+                      >
+                        <div className="relative w-36 h-36 mb-3 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform">
+                          <Image
+                            src={product.image}
+                            alt={product.name}
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                        <div className="w-full text-base font-semibold text-gray-900 text-center truncate" title={product.name}>{product.name}</div>
+                        {product.brand && <div className="w-full text-xs text-gray-500 text-center truncate" title={product.brand}>{product.brand}</div>}
+                      </button>
+                    ) : (
+                      <div key={idx} className="bg-gray-50 rounded-xl border border-dashed border-gray-200 flex flex-col items-center justify-center min-h-[240px] p-4 opacity-60">
+                        <span className="text-gray-300 text-3xl">—</span>
+                      </div>
+                    )
+                  )}
+                  {/* Contact Us Card */}
+                  <Link href="/#contact" className="bg-red-50 border-2 border-red-200 rounded-xl flex flex-col items-center justify-center min-h-[240px] p-4 hover:bg-red-100 transition-colors group">
+                    <div className="flex flex-col items-center">
+                      <svg className="w-10 h-10 text-red-500 mb-2 group-hover:text-red-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M21 10.5V6.75A2.25 2.25 0 0018.75 4.5h-13.5A2.25 2.25 0 003 6.75v10.5A2.25 2.25 0 005.25 19.5h6.75" /><path strokeLinecap="round" strokeLinejoin="round" d="M21 10.5l-9 6-9-6" /></svg>
+                      <span className="text-base font-bold text-red-600">Contact Us</span>
+                      <span className="text-xs text-red-500 text-center">for more options</span>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            );
+          })
+        ) : category === 'outerwear' ? (
+          OUTERWEAR_SUPPLIERS.map((supplier) => {
+            const supplierProducts = categoryProducts.filter(p => p.supplier === supplier);
+            let cards: (typeof supplierProducts[number] | null)[] = supplierProducts.slice(0, 4);
+            while (cards.length < 4) {
+              cards.push(null);
+            }
+            return (
+              <div key={supplier} className="mb-16">
+                <h2 className="text-2xl font-bold mb-6 text-gray-900">{supplier}</h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                  {cards.map((product, idx) =>
+                    product ? (
+                      <button
+                        key={product.id}
+                        className="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition-shadow border border-gray-100 flex flex-col items-center p-4 min-h-[240px] w-full focus:outline-none group"
+                        onClick={() => setModalProduct(product)}
+                        type="button"
+                      >
+                        <div className="relative w-36 h-36 mb-3 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform">
+                          <Image
+                            src={product.image}
+                            alt={product.name}
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                        <div className="w-full text-base font-semibold text-gray-900 text-center truncate" title={product.name}>{product.name}</div>
+                        {product.brand && <div className="w-full text-xs text-gray-500 text-center truncate" title={product.brand}>{product.brand}</div>}
+                      </button>
+                    ) : (
+                      <div key={idx} className="bg-gray-50 rounded-xl border border-dashed border-gray-200 flex flex-col items-center justify-center min-h-[240px] p-4 opacity-60">
+                        <span className="text-gray-300 text-3xl">—</span>
+                      </div>
+                    )
+                  )}
+                  {/* Contact Us Card */}
+                  <Link href="/#contact" className="bg-red-50 border-2 border-red-200 rounded-xl flex flex-col items-center justify-center min-h-[240px] p-4 hover:bg-red-100 transition-colors group">
+                    <div className="flex flex-col items-center">
+                      <svg className="w-10 h-10 text-red-500 mb-2 group-hover:text-red-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M21 10.5V6.75A2.25 2.25 0 0018.75 4.5h-13.5A2.25 2.25 0 003 6.75v10.5A2.25 2.25 0 005.25 19.5h6.75" /><path strokeLinecap="round" strokeLinejoin="round" d="M21 10.5l-9 6-9-6" /></svg>
+                      <span className="text-base font-bold text-red-600">Contact Us</span>
+                      <span className="text-xs text-red-500 text-center">for more options</span>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            );
+          })
+        ) : category === 'workwear' ? (
+          WORKWEAR_SUPPLIERS.map((supplier) => {
+            const supplierProducts = categoryProducts.filter(p => p.supplier === supplier);
+            let cards: (typeof supplierProducts[number] | null)[] = supplierProducts.slice(0, 4);
+            while (cards.length < 4) {
+              cards.push(null);
+            }
+            return (
+              <div key={supplier} className="mb-16">
+                <h2 className="text-2xl font-bold mb-6 text-gray-900">{supplier}</h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                  {cards.map((product, idx) =>
+                    product ? (
+                      <button
+                        key={product.id}
+                        className="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition-shadow border border-gray-100 flex flex-col items-center p-4 min-h-[240px] w-full focus:outline-none group"
+                        onClick={() => setModalProduct(product)}
+                        type="button"
+                      >
+                        <div className="relative w-36 h-36 mb-3 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform">
+                          <Image
+                            src={product.image}
+                            alt={product.name}
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                        <div className="w-full text-base font-semibold text-gray-900 text-center truncate" title={product.name}>{product.name}</div>
+                        {product.brand && <div className="w-full text-xs text-gray-500 text-center truncate" title={product.brand}>{product.brand}</div>}
+                      </button>
+                    ) : (
+                      <div key={idx} className="bg-gray-50 rounded-xl border border-dashed border-gray-200 flex flex-col items-center justify-center min-h-[240px] p-4 opacity-60">
+                        <span className="text-gray-300 text-3xl">—</span>
+                      </div>
+                    )
+                  )}
+                  {/* Contact Us Card */}
+                  <Link href="/#contact" className="bg-red-50 border-2 border-red-200 rounded-xl flex flex-col items-center justify-center min-h-[240px] p-4 hover:bg-red-100 transition-colors group">
+                    <div className="flex flex-col items-center">
+                      <svg className="w-10 h-10 text-red-500 mb-2 group-hover:text-red-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M21 10.5V6.75A2.25 2.25 0 0018.75 4.5h-13.5A2.25 2.25 0 003 6.75v10.5A2.25 2.25 0 005.25 19.5h6.75" /><path strokeLinecap="round" strokeLinejoin="round" d="M21 10.5l-9 6-9-6" /></svg>
+                      <span className="text-base font-bold text-red-600">Contact Us</span>
+                      <span className="text-xs text-red-500 text-center">for more options</span>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            );
+          })
+        ) : null}
       </div>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <h3 className="text-xl font-semibold mb-4 text-red-600">Contact Us</h3>
-              <p>Email: info@directpromo.com</p>
-              <p>Phone: (555) 123-4567</p>
-              <p>Address: 123 Business Ave, Suite 100</p>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold mb-4 text-red-600">Quick Links</h3>
-              <ul className="space-y-2">
-                <li><Link href="#" className="hover:text-red-500 transition-colors">About Us</Link></li>
-                <li><Link href="#" className="hover:text-red-500 transition-colors">Products</Link></li>
-                <li><Link href="#" className="hover:text-red-500 transition-colors">Contact</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold mb-4 text-red-600">Follow Us</h3>
-              <div className="flex space-x-4">
-                <Link href="#" className="hover:text-red-500 transition-colors">LinkedIn</Link>
-                <Link href="#" className="hover:text-red-500 transition-colors">Twitter</Link>
-                <Link href="#" className="hover:text-red-500 transition-colors">Facebook</Link>
+      {/* Modal for enlarged product image */}
+      {modalProduct && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60" onClick={() => setModalProduct(null)}>
+          <div className="bg-white rounded-lg shadow-lg p-4 max-w-md w-full relative" onClick={e => e.stopPropagation()}>
+            <button
+              className="absolute top-2 right-2 text-gray-500 hover:text-red-600 text-2xl font-bold focus:outline-none"
+              onClick={() => setModalProduct(null)}
+              aria-label="Close"
+              type="button"
+            >
+              ×
+            </button>
+            <div className="flex flex-col items-center">
+              <div className="relative w-64 h-64 mb-4 rounded bg-gray-100 flex items-center justify-center overflow-hidden">
+                <Image
+                  src={modalProduct.image}
+                  alt={modalProduct.name}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <div className="text-lg font-bold text-gray-900 mb-1 text-center">{modalProduct.name}</div>
+              <div className="text-sm text-gray-500 mb-1 text-center">{modalProduct.brand || ''}</div>
+              <div className="text-sm text-gray-400 mb-2 text-center">{modalProduct.description}</div>
+              <div className="text-base text-gray-700 text-center">
+                {modalProduct.price !== undefined ? (
+                  <span>${modalProduct.price.toFixed(2)}</span>
+                ) : (
+                  <span className="italic text-gray-400">Call for Pricing</span>
+                )}
               </div>
             </div>
           </div>
-          <div className="mt-8 pt-8 border-t border-gray-800 text-center">
-            <p>&copy; 2024 DirectPromo. All rights reserved.</p>
-          </div>
         </div>
-      </footer>
+      )}
     </div>
   );
 } 

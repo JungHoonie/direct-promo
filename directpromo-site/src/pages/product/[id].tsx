@@ -176,15 +176,15 @@ export default function ProductDetails() {
 
           {/* Product Info */}
           <div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">{product.name}</h1>
+            <h1 className="text-4xl font-extrabold text-gray-900 mb-4">{product.name}</h1>
             <div className="text-2xl text-gray-900 mb-6">
-              From <span className="font-bold">${product.price.toFixed(2)}</span>
+              From <span className="font-extrabold">${product.price.toFixed(2)}</span>
             </div>
             <p className="text-gray-600 mb-8">{product.description}</p>
 
             {/* Features */}
             <div className="mb-8">
-              <h2 className="text-xl font-semibold mb-4">Features</h2>
+              <h2 className="text-xl font-extrabold mb-4">Features</h2>
               <ul className="space-y-2 text-gray-600">
                 <li>• 100% combed ring-spun cotton</li>
                 <li>• Pre-shrunk fabric</li>
@@ -197,7 +197,7 @@ export default function ProductDetails() {
 
             {/* Color Selection */}
             <div className="mb-8">
-              <h2 className="text-xl font-semibold mb-4">Color</h2>
+              <h2 className="text-xl font-extrabold mb-4">Color</h2>
               <div className="flex flex-wrap gap-3">
                 {product.colors.map(color => (
                   <button
@@ -218,7 +218,7 @@ export default function ProductDetails() {
             {/* Size Quantities */}
             <div className="mb-8">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-semibold">Size Breakdown</h2>
+                <h2 className="text-xl font-extrabold">Size Breakdown</h2>
                 <button
                   onClick={() => setIsCustomizing(!isCustomizing)}
                   className="text-red-600 hover:text-red-700"

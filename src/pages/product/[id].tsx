@@ -41,6 +41,16 @@ const tshirtSuppliers = [
   // Add more as needed
 ];
 
+const SUPPLIERS = [
+  'Canada Sportswear',
+  'S&S Activewear',
+  'Stormtech',
+  'AJM International',
+  'Big K Clothing',
+  'Magnus Pen',
+];
+const MAX_CARDS = 5;
+
 export default function ProductDetails() {
   const router = useRouter();
   const { id } = router.query;
@@ -55,6 +65,8 @@ export default function ProductDetails() {
   // Logo upload state
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
   const [logoError, setLogoError] = useState<string | null>(null);
+  // Modal state for enlarged image
+  const [modalProduct, setModalProduct] = useState<null | typeof products[0]>(null);
 
   // Initialize size quantities if not set (patched infinite loop)
   useEffect(() => {
@@ -92,6 +104,18 @@ export default function ProductDetails() {
     setSizeQuantities(product.sizes.map(size => ({ size, quantity: 0 })));
   };
 
+  // Find products in the same category
+  const categoryProducts = products.filter(
+    p => p.category === product.category
+  );
+  // Group by supplier
+  const productsBySupplier = categoryProducts.reduce((acc, p) => {
+    const supplier = p.supplier;
+    if (!acc[supplier]) acc[supplier] = [];
+    acc[supplier].push(p);
+    return acc;
+  }, {} as Record<string, typeof products>);
+
   return (
     <div className="min-h-screen bg-white">
       <Head>
@@ -118,16 +142,19 @@ export default function ProductDetails() {
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Product Image + Logo Upload */}
-          <div className="space-y-4">
-            <div className="w-full h-[500px] bg-gray-100 rounded-xl overflow-hidden relative flex items-center justify-center mt-8 shadow-lg">
-              <Image
-                src={product.image}
-                alt={product.name}
-                width={600}
-                height={400}
-                className="w-full h-full object-cover rounded-xl"
-                priority
-              />
+          <div className="space-y-4 col-span-1 md:col-span-2">
+            <div className="w-full aspect-[16/9] md:aspect-[32/3] lg:aspect-[16/9] bg-black rounded-xl overflow-hidden relative flex items-center justify-center mt-8 shadow-lg md:max-w-[470px] md:mx-auto">
+              <div className="w-full h-full flex items-center justify-center p-2">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  width={1600}
+                  height={700}
+                  className="object-contain"
+                  style={{ maxWidth: '80%', maxHeight: '80%' }}
+                  priority
+                />
+              </div>
               {/* Logo overlay */}
               {logoPreview && (
                 <Image
@@ -136,7 +163,7 @@ export default function ProductDetails() {
                   width={200}
                   height={200}
                   className="absolute left-1/2 top-[30%] -translate-x-1/2 -translate-y-1/2 object-contain pointer-events-none opacity-90"
-                  style={{ maxWidth: '60%', maxHeight: '60%' }}
+                  style={{ maxWidth: '40%', maxHeight: '40%' }}
                 />
               )}
             </div>
@@ -222,7 +249,11 @@ export default function ProductDetails() {
           <div className="mt-8">
             <h1 className="text-4xl font-bold text-gray-900 mb-4">{product.name}</h1>
             <div className="text-2xl text-gray-900 mb-6">
-              From <span className="font-bold">${product.price.toFixed(2)}</span>
+              {product.price !== undefined ? (
+                <>From <span className="font-bold">${product.price.toFixed(2)}</span></>
+              ) : (
+                <span className="italic text-gray-400">Call for Pricing</span>
+              )}
             </div>
             <p className="text-gray-600 mb-8">{product.description}</p>
 
@@ -286,6 +317,98 @@ export default function ProductDetails() {
           </div>
         </div>
       </div>
+
+      {/* Supplier Grid */}
+      <div className="container mx-auto px-4 py-16">
+        <h2 className="text-2xl font-bold mb-6 text-gray-900">Explore More {product.category.charAt(0).toUpperCase() + product.category.slice(1)} by Supplier</h2>
+        {SUPPLIERS.map((supplier) => {
+          const supplierProducts = productsBySupplier[supplier] || [];
+          let cards: (typeof supplierProducts[number] | null)[] = [];
+          if (supplier === 'Canada Sportswear') {
+            cards = supplierProducts.slice(0, 4);
+            while (cards.length < 4) cards.push(null);
+          } else {
+            cards = supplierProducts.slice(0, 4);
+            while (cards.length < 4) cards.push(null);
+          }
+          return (
+            <div key={supplier} className="mb-12">
+              <h3 className="text-lg font-semibold mb-4 text-gray-800">{supplier}</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                {cards.map((p, idx) =>
+                  p ? (
+                    <button
+                      key={p.id}
+                      className="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition-shadow border border-gray-100 flex flex-col items-center p-4 min-h-[240px] w-full focus:outline-none group"
+                      onClick={() => setModalProduct(p)}
+                      type="button"
+                    >
+                      <div className="relative w-36 h-36 mb-3 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform">
+                        <Image
+                          src={p.image}
+                          alt={p.name}
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
+                      <div className="w-full text-base font-semibold text-gray-900 text-center truncate" title={p.name}>{p.name}</div>
+                      {p.brand && <div className="w-full text-xs text-gray-500 text-center truncate" title={p.brand}>{p.brand}</div>}
+                    </button>
+                  ) : (
+                    <div key={idx} className="bg-gray-50 rounded-xl border border-dashed border-gray-200 flex flex-col items-center justify-center min-h-[240px] p-4 opacity-60">
+                      <span className="text-gray-300 text-3xl">—</span>
+                    </div>
+                  )
+                )}
+                {/* Contact Us Card */}
+                <Link href="/#contact" className="bg-red-50 border-2 border-red-200 rounded-xl flex flex-col items-center justify-center min-h-[240px] p-4 hover:bg-red-100 transition-colors group">
+                  <div className="flex flex-col items-center">
+                    <svg className="w-10 h-10 text-red-500 mb-2 group-hover:text-red-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M21 10.5V6.75A2.25 2.25 0 0018.75 4.5h-13.5A2.25 2.25 0 003 6.75v10.5A2.25 2.25 0 005.25 19.5h6.75" /><path strokeLinecap="round" strokeLinejoin="round" d="M21 10.5l-9 6-9-6" /></svg>
+                    <span className="text-base font-bold text-red-600">Contact Us</span>
+                    <span className="text-xs text-red-500 text-center">for more options</span>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Modal for enlarged product image */}
+      {modalProduct && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60" onClick={() => setModalProduct(null)}>
+          <div className="bg-white rounded-lg shadow-lg p-4 max-w-md w-full relative" onClick={e => e.stopPropagation()}>
+            <button
+              className="absolute top-2 right-2 text-gray-500 hover:text-red-600 text-2xl font-bold focus:outline-none"
+              onClick={() => setModalProduct(null)}
+              aria-label="Close"
+              type="button"
+            >
+              ×
+            </button>
+            <div className="flex flex-col items-center">
+              <div className="relative w-64 h-64 mb-4 rounded bg-gray-100 flex items-center justify-center overflow-hidden">
+                <Image
+                  src={modalProduct.image}
+                  alt={modalProduct.name}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <div className="text-lg font-bold text-gray-900 mb-1 text-center">{modalProduct.name}</div>
+              <div className="text-sm text-gray-500 mb-1 text-center">{modalProduct.brand || ''}</div>
+              <div className="text-sm text-gray-400 mb-2 text-center">{modalProduct.description}</div>
+              <div className="text-base text-gray-700 text-center">
+                {modalProduct.price !== undefined ? (
+                  <span>${modalProduct.price.toFixed(2)}</span>
+                ) : (
+                  <span className="italic text-gray-400">Call for Pricing</span>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 } 
