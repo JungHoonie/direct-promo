@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { products } from '@/data/products';
-import { useCart } from '@/context/CartContext';
 import Image from 'next/image';
 
 interface SizeQuantity {
@@ -44,7 +43,6 @@ const tshirtSuppliers = [
 export default function ProductDetails() {
   const router = useRouter();
   const { id } = router.query;
-  const { addToCart } = useCart();
   
   // Find the product
   const product = products.find(p => p.id === id);
@@ -70,31 +68,6 @@ export default function ProductDetails() {
   }
 
   const totalQuantity = sizeQuantities.reduce((sum, sq) => sum + sq.quantity, 0);
-
-  const handleAddToCart = () => {
-    if (totalQuantity < product.minOrder) {
-      alert(`Minimum order quantity is ${product.minOrder} units`);
-      return;
-    }
-    if (!selectedColor) {
-      alert('Please select a color');
-      return;
-    }
-
-    // Add to cart with size breakdown
-    addToCart({
-      ...product,
-      selectedColor,
-      sizeBreakdown: sizeQuantities.filter(sq => sq.quantity > 0),
-      quantity: totalQuantity,
-    });
-
-    // Reset form
-    setSelectedColor('');
-    if (product?.sizes) {
-      setSizeQuantities((product.sizes ?? []).map(size => ({ size, quantity: 0 })));
-    }
-  };
 
   // Find products in the same category
   const categoryProducts = products.filter(
@@ -289,23 +262,6 @@ export default function ProductDetails() {
                 Minimum order: {product.minOrder} units
               </div>
             </div>
-
-            {/* Add to Cart Button */}
-            <button
-              onClick={handleAddToCart}
-              disabled={totalQuantity < product.minOrder || !selectedColor}
-              className={`w-full py-4 px-8 rounded-lg text-white font-semibold ${
-                totalQuantity >= product.minOrder && selectedColor
-                  ? 'bg-red-600 hover:bg-red-700'
-                  : 'bg-gray-400 cursor-not-allowed'
-              }`}
-            >
-              {totalQuantity < product.minOrder
-                ? `Minimum ${product.minOrder} units required`
-                : !selectedColor
-                ? 'Select a color'
-                : 'Add to Cart'}
-            </button>
           </div>
         </div>
       </div>
