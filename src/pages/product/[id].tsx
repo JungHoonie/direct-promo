@@ -67,8 +67,6 @@ export default function ProductDetails() {
     return <div>Product not found</div>;
   }
 
-  const totalQuantity = sizeQuantities.reduce((sum, sq) => sum + sq.quantity, 0);
-
   // Find products in the same category
   const categoryProducts = products.filter(
     p => p.category === product.category
