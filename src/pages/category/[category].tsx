@@ -12,8 +12,6 @@ const SUPPLIERS = [
   'Big K Clothing',
 ];
 
-const MAX_CARDS = 5;
-
 // List of all suppliers
 const ALL_SUPPLIERS = [
   'Canada Sportswear',
@@ -144,18 +142,7 @@ export default function CategoryPage() {
         {category === 'tshirts' ? (
           TSHIRT_SUPPLIERS.map((supplier) => {
             const supplierProducts = productsBySupplier[supplier] || [];
-            let cards: (typeof supplierProducts[number] | null)[] = [];
-            if (supplier === 'Canada Sportswear') {
-              cards = supplierProducts.slice(0, 4);
-              while (cards.length < 4) {
-                cards.push(null);
-              }
-            } else {
-              cards = supplierProducts.slice(0, 4);
-              while (cards.length < 4) {
-                cards.push(null);
-              }
-            }
+            const cards: (typeof supplierProducts[number] | null)[] = supplierProducts.slice(0, 4);
             return (
               <div key={supplier} className="mb-16">
                 <h2 className="text-2xl font-bold mb-6 text-gray-900">{supplier}</h2>
@@ -200,10 +187,7 @@ export default function CategoryPage() {
         ) : category === 'accessories' ? (
           accessoriesSuppliers.map((supplier) => {
             const supplierProducts = productsBySupplier[supplier] || [];
-            let cards: (typeof supplierProducts[number] | null)[] = supplierProducts.slice(0, 4);
-            while (cards.length < 4) {
-              cards.push(null);
-            }
+            const cards: (typeof supplierProducts[number] | null)[] = supplierProducts.slice(0, 4);
             return (
               <div key={supplier} className="mb-16">
                 <h2 className="text-2xl font-bold mb-6 text-gray-900">{supplier}</h2>
@@ -248,10 +232,7 @@ export default function CategoryPage() {
         ) : category === 'headwear' ? (
           HEADWEAR_SUPPLIERS.map((supplier) => {
             const supplierProducts = categoryProducts.filter(p => p.supplier === supplier);
-            let cards: (typeof supplierProducts[number] | null)[] = supplierProducts.slice(0, 4);
-            while (cards.length < 4) {
-              cards.push(null);
-            }
+            const cards: (typeof supplierProducts[number] | null)[] = supplierProducts.slice(0, 4);
             return (
               <div key={supplier} className="mb-16">
                 <h2 className="text-2xl font-bold mb-6 text-gray-900">{supplier}</h2>
@@ -296,10 +277,7 @@ export default function CategoryPage() {
         ) : category === 'outerwear' ? (
           OUTERWEAR_SUPPLIERS.map((supplier) => {
             const supplierProducts = categoryProducts.filter(p => p.supplier === supplier);
-            let cards: (typeof supplierProducts[number] | null)[] = supplierProducts.slice(0, 4);
-            while (cards.length < 4) {
-              cards.push(null);
-            }
+            const cards: (typeof supplierProducts[number] | null)[] = supplierProducts.slice(0, 4);
             return (
               <div key={supplier} className="mb-16">
                 <h2 className="text-2xl font-bold mb-6 text-gray-900">{supplier}</h2>
@@ -344,10 +322,7 @@ export default function CategoryPage() {
         ) : category === 'workwear' ? (
           WORKWEAR_SUPPLIERS.map((supplier) => {
             const supplierProducts = categoryProducts.filter(p => p.supplier === supplier);
-            let cards: (typeof supplierProducts[number] | null)[] = supplierProducts.slice(0, 4);
-            while (cards.length < 4) {
-              cards.push(null);
-            }
+            const cards: (typeof supplierProducts[number] | null)[] = supplierProducts.slice(0, 4);
             return (
               <div key={supplier} className="mb-16">
                 <h2 className="text-2xl font-bold mb-6 text-gray-900">{supplier}</h2>

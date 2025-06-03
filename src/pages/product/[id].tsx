@@ -49,7 +49,6 @@ const SUPPLIERS = [
   'Big K Clothing',
   'Magnus Pen',
 ];
-const MAX_CARDS = 5;
 
 export default function ProductDetails() {
   const router = useRouter();
@@ -323,7 +322,7 @@ export default function ProductDetails() {
         <h2 className="text-2xl font-bold mb-6 text-gray-900">Explore More {product.category.charAt(0).toUpperCase() + product.category.slice(1)} by Supplier</h2>
         {SUPPLIERS.map((supplier) => {
           const supplierProducts = productsBySupplier[supplier] || [];
-          let cards: (typeof supplierProducts[number] | null)[] = [];
+          const cards: (typeof supplierProducts[number] | null)[] = [];
           if (supplier === 'Canada Sportswear') {
             cards = supplierProducts.slice(0, 4);
             while (cards.length < 4) cards.push(null);
