@@ -237,7 +237,7 @@ export default function ProductDetails() {
             <div className="mb-8">
               <h2 className="text-xl font-semibold mb-4">Color</h2>
               <div className="flex flex-wrap gap-3">
-                {product.colors.map(color => (
+                {(product.colors ?? []).map(color => (
                   <button
                     key={color}
                     onClick={() => setSelectedColor(color)}
