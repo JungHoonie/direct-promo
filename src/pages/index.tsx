@@ -116,23 +116,6 @@ export default function Home() {
           <meta name="twitter:image" content="https://yourdomain.com/images/og-image.jpg" />
           {/* SEO: Canonical URL */}
           <link rel="canonical" href="https://yourdomain.com/" />
-          {/* Google Analytics GA4 */}
-          <Script
-            src="https://www.googletagmanager.com/gtag/js?id=G-J2529PY042"
-            strategy="afterInteractive"
-          />
-          <Script
-            id="ga-script"
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-J2529PY042');
-              `
-            }}
-          />
           {/* Local Business Schema.org JSON-LD */}
           <script type="application/ld+json" dangerouslySetInnerHTML={{
             __html: JSON.stringify({
@@ -213,6 +196,22 @@ export default function Home() {
           }} />
           <link rel="icon" type="image/png" href="/images/categories/dp_logo_final.png" />
         </Head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-J2529PY042"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="ga-script"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-J2529PY042');
+            `
+          }}
+        />
 
         {/* Top Navigation Bar */}
         {/* Removed duplicate nav bar. Header is now global. */}
@@ -340,7 +339,7 @@ export default function Home() {
                   ].map((item, index) => (
                     <div key={index} className="flex items-start space-x-5">
                       <span className="inline-flex items-center justify-center w-14 h-14 lg:w-16 lg:h-16 rounded-full bg-[#F9FAFB] flex-shrink-0">
-                        <img src={item.icon} alt={item.title} className="w-8 h-8 lg:w-10 lg:h-10 mt-1" />
+                        <Image src={item.icon} alt={item.title} width={40} height={40} className="w-8 h-8 lg:w-10 lg:h-10 mt-1" />
                       </span>
                       <div>
                         <h3 className="font-semibold text-lg md:text-xl text-[#1F2937] mb-1">{item.title}</h3>
