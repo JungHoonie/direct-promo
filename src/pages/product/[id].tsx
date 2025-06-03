@@ -60,7 +60,7 @@ export default function ProductDetails() {
 
   // Initialize size quantities if not set
   useEffect(() => {
-    if (product?.sizes?.length && sizeQuantities.length === 0) {
+    if (product && sizeQuantities.length === 0) {
       setSizeQuantities((product.sizes ?? []).map(size => ({ size, quantity: 0 })));
     }
   }, [product, sizeQuantities.length]);
