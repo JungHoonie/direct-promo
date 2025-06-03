@@ -60,7 +60,7 @@ export default function ProductDetails() {
 
   // Initialize size quantities if not set
   useEffect(() => {
-    if (product?.sizes && sizeQuantities.length === 0) {
+    if (product?.sizes?.length && sizeQuantities.length === 0) {
       setSizeQuantities(product.sizes.map(size => ({ size, quantity: 0 })));
     }
   }, [product, sizeQuantities.length]);
@@ -91,7 +91,7 @@ export default function ProductDetails() {
 
     // Reset form
     setSelectedColor('');
-    if (product.sizes) {
+    if (product?.sizes?.length) {
       setSizeQuantities(product.sizes.map(size => ({ size, quantity: 0 })));
     }
   };
