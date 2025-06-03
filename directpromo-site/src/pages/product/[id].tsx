@@ -54,7 +54,7 @@ export default function ProductDetails() {
   }
 
   const totalQuantity = sizeQuantities.reduce((sum, sq) => sum + sq.quantity, 0);
-  const totalPrice = totalQuantity * product.price;
+  const totalPrice = totalQuantity * (product.price ?? 0);
 
   const updateQuantity = (size: string, quantity: number) => {
     setSizeQuantities(prev =>
