@@ -67,12 +67,12 @@ export default function ProductDetails() {
   // Modal state for enlarged image
   const [modalProduct, setModalProduct] = useState<null | typeof products[0]>(null);
 
-  // Initialize size quantities if not set (patched infinite loop)
+  // Initialize size quantities if not set
   useEffect(() => {
     if (product && sizeQuantities.length === 0) {
       setSizeQuantities(product.sizes.map(size => ({ size, quantity: 0 })));
     }
-  }, [product]);
+  }, [product, sizeQuantities.length]);
 
   if (!product) {
     return <div>Product not found</div>;
@@ -203,7 +203,7 @@ export default function ProductDetails() {
                 </button>
               )}
             </div>
-            {/* Suppliers Section for Premium Cotton T-Shirt (moved under image) */}
+            {/* Suppliers Section for Premium Cotton T-Shirt */}
             {product.id === 'premium-tshirt' && (
               <div className="mt-12 mb-8">
                 <h2 className="text-lg font-semibold mb-3">Our T-Shirt Suppliers</h2>
@@ -260,12 +260,12 @@ export default function ProductDetails() {
             <div className="mb-8">
               <h2 className="text-xl font-semibold mb-4">Features</h2>
               <ul className="space-y-2 text-gray-600">
-                <li>• 100% combed ring-spun cotton</li>
-                <li>• Pre-shrunk fabric</li>
-                <li>• Seamless collar</li>
-                <li>• Double-needle stitching throughout</li>
-                <li>• Available in men&apos;s, women&apos;s, and unisex styles</li>
-                <li>• Screen printing, embroidery, or heat transfer options</li>
+                <li>&bull; 100% combed ring-spun cotton</li>
+                <li>&bull; Pre-shrunk fabric</li>
+                <li>&bull; Seamless collar</li>
+                <li>&bull; Double-needle stitching throughout</li>
+                <li>&bull; Available in men&apos;s, women&apos;s, and unisex styles</li>
+                <li>&bull; Screen printing, embroidery, or heat transfer options</li>
               </ul>
             </div>
 
@@ -320,21 +320,13 @@ export default function ProductDetails() {
       {/* Supplier Grid */}
       <div className="container mx-auto px-4 py-16">
         <h2 className="text-2xl font-bold mb-6 text-gray-900">Explore More {product.category.charAt(0).toUpperCase() + product.category.slice(1)} by Supplier</h2>
-        {SUPPLIERS.map((supplier) => {
-          const supplierProducts = productsBySupplier[supplier] || [];
-          const cards: (typeof supplierProducts[number] | null)[] = [];
-          if (supplier === 'Canada Sportswear') {
-            cards = supplierProducts.slice(0, 4);
-            while (cards.length < 4) cards.push(null);
-          } else {
-            cards = supplierProducts.slice(0, 4);
-            while (cards.length < 4) cards.push(null);
-          }
+        {Object.entries(productsBySupplier).map(([supplier, supplierProducts]) => {
+          const cards = supplierProducts.slice(0, 4);
           return (
             <div key={supplier} className="mb-12">
               <h3 className="text-lg font-semibold mb-4 text-gray-800">{supplier}</h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                {cards.map((p, idx) =>
+                {cards.map((p) =>
                   p ? (
                     <button
                       key={p.id}
@@ -353,11 +345,7 @@ export default function ProductDetails() {
                       <div className="w-full text-base font-semibold text-gray-900 text-center truncate" title={p.name}>{p.name}</div>
                       {p.brand && <div className="w-full text-xs text-gray-500 text-center truncate" title={p.brand}>{p.brand}</div>}
                     </button>
-                  ) : (
-                    <div key={idx} className="bg-gray-50 rounded-xl border border-dashed border-gray-200 flex flex-col items-center justify-center min-h-[240px] p-4 opacity-60">
-                      <span className="text-gray-300 text-3xl">—</span>
-                    </div>
-                  )
+                  ) : null
                 )}
                 {/* Contact Us Card */}
                 <Link href="/#contact" className="bg-red-50 border-2 border-red-200 rounded-xl flex flex-col items-center justify-center min-h-[240px] p-4 hover:bg-red-100 transition-colors group">

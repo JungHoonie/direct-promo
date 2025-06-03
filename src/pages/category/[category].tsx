@@ -5,23 +5,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 
-const SUPPLIERS = [
-  'Canada Sportswear',
-  'S&S Activewear',
-  'Stormtech',
-  'Big K Clothing',
-];
-
-// List of all suppliers
-const ALL_SUPPLIERS = [
-  'Canada Sportswear',
-  'S&S Activewear',
-  'Stormtech',
-  'AJM International',
-  'Big K Clothing',
-  'Magnus Pen',
-];
-
 const OUTERWEAR_SUPPLIERS = [
   'Canada Sportswear',
   'S&S Activewear',
@@ -102,7 +85,7 @@ export default function CategoryPage() {
       default:
         return {
           title: 'Accessories Collection',
-          description: 'Bags, drinkware, and branded essentials—sustainable extras that make a lasting impression.',
+          description: 'Bags, drinkware, and branded essentials&mdash;sustainable extras that make a lasting impression.',
           image: '/images/categories/accessories_dp.jpeg'
         };
     }
@@ -128,6 +111,7 @@ export default function CategoryPage() {
             alt={categoryInfo.title}
             fill
             className="object-cover opacity-50"
+            priority
           />
         </div>
         <div className="relative h-full flex items-center justify-center">
@@ -142,12 +126,12 @@ export default function CategoryPage() {
         {category === 'tshirts' ? (
           TSHIRT_SUPPLIERS.map((supplier) => {
             const supplierProducts = productsBySupplier[supplier] || [];
-            const cards: (typeof supplierProducts[number] | null)[] = supplierProducts.slice(0, 4);
+            const cards = supplierProducts.slice(0, 4);
             return (
               <div key={supplier} className="mb-16">
                 <h2 className="text-2xl font-bold mb-6 text-gray-900">{supplier}</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                  {cards.map((product, idx) =>
+                  {cards.map((product) =>
                     product ? (
                       <button
                         key={product.id}
@@ -166,11 +150,7 @@ export default function CategoryPage() {
                         <div className="w-full text-base font-semibold text-gray-900 text-center truncate" title={product.name}>{product.name}</div>
                         {product.brand && <div className="w-full text-xs text-gray-500 text-center truncate" title={product.brand}>{product.brand}</div>}
                       </button>
-                    ) : (
-                      <div key={idx} className="bg-gray-50 rounded-xl border border-dashed border-gray-200 flex flex-col items-center justify-center min-h-[240px] p-4 opacity-60">
-                        <span className="text-gray-300 text-3xl">—</span>
-                      </div>
-                    )
+                    ) : null
                   )}
                   {/* Contact Us Card */}
                   <Link href="/#contact" className="bg-red-50 border-2 border-red-200 rounded-xl flex flex-col items-center justify-center min-h-[240px] p-4 hover:bg-red-100 transition-colors group">
@@ -187,12 +167,12 @@ export default function CategoryPage() {
         ) : category === 'accessories' ? (
           accessoriesSuppliers.map((supplier) => {
             const supplierProducts = productsBySupplier[supplier] || [];
-            const cards: (typeof supplierProducts[number] | null)[] = supplierProducts.slice(0, 4);
+            const cards = supplierProducts.slice(0, 4);
             return (
               <div key={supplier} className="mb-16">
                 <h2 className="text-2xl font-bold mb-6 text-gray-900">{supplier}</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                  {cards.map((product, idx) =>
+                  {cards.map((product) =>
                     product ? (
                       <button
                         key={product.id}
@@ -211,146 +191,7 @@ export default function CategoryPage() {
                         <div className="w-full text-base font-semibold text-gray-900 text-center truncate" title={product.name}>{product.name}</div>
                         {product.brand && <div className="w-full text-xs text-gray-500 text-center truncate" title={product.brand}>{product.brand}</div>}
                       </button>
-                    ) : (
-                      <div key={idx} className="bg-gray-50 rounded-xl border border-dashed border-gray-200 flex flex-col items-center justify-center min-h-[240px] p-4 opacity-60">
-                        <span className="text-gray-300 text-3xl">—</span>
-                      </div>
-                    )
-                  )}
-                  {/* Contact Us Card */}
-                  <Link href="/#contact" className="bg-red-50 border-2 border-red-200 rounded-xl flex flex-col items-center justify-center min-h-[240px] p-4 hover:bg-red-100 transition-colors group">
-                    <div className="flex flex-col items-center">
-                      <svg className="w-10 h-10 text-red-500 mb-2 group-hover:text-red-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M21 10.5V6.75A2.25 2.25 0 0018.75 4.5h-13.5A2.25 2.25 0 003 6.75v10.5A2.25 2.25 0 005.25 19.5h6.75" /><path strokeLinecap="round" strokeLinejoin="round" d="M21 10.5l-9 6-9-6" /></svg>
-                      <span className="text-base font-bold text-red-600">Contact Us</span>
-                      <span className="text-xs text-red-500 text-center">for more options</span>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-            );
-          })
-        ) : category === 'headwear' ? (
-          HEADWEAR_SUPPLIERS.map((supplier) => {
-            const supplierProducts = categoryProducts.filter(p => p.supplier === supplier);
-            const cards: (typeof supplierProducts[number] | null)[] = supplierProducts.slice(0, 4);
-            return (
-              <div key={supplier} className="mb-16">
-                <h2 className="text-2xl font-bold mb-6 text-gray-900">{supplier}</h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                  {cards.map((product, idx) =>
-                    product ? (
-                      <button
-                        key={product.id}
-                        className="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition-shadow border border-gray-100 flex flex-col items-center p-4 min-h-[240px] w-full focus:outline-none group"
-                        onClick={() => setModalProduct(product)}
-                        type="button"
-                      >
-                        <div className="relative w-36 h-36 mb-3 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform">
-                          <Image
-                            src={product.image}
-                            alt={product.name}
-                            fill
-                            className="object-contain"
-                          />
-                        </div>
-                        <div className="w-full text-base font-semibold text-gray-900 text-center truncate" title={product.name}>{product.name}</div>
-                        {product.brand && <div className="w-full text-xs text-gray-500 text-center truncate" title={product.brand}>{product.brand}</div>}
-                      </button>
-                    ) : (
-                      <div key={idx} className="bg-gray-50 rounded-xl border border-dashed border-gray-200 flex flex-col items-center justify-center min-h-[240px] p-4 opacity-60">
-                        <span className="text-gray-300 text-3xl">—</span>
-                      </div>
-                    )
-                  )}
-                  {/* Contact Us Card */}
-                  <Link href="/#contact" className="bg-red-50 border-2 border-red-200 rounded-xl flex flex-col items-center justify-center min-h-[240px] p-4 hover:bg-red-100 transition-colors group">
-                    <div className="flex flex-col items-center">
-                      <svg className="w-10 h-10 text-red-500 mb-2 group-hover:text-red-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M21 10.5V6.75A2.25 2.25 0 0018.75 4.5h-13.5A2.25 2.25 0 003 6.75v10.5A2.25 2.25 0 005.25 19.5h6.75" /><path strokeLinecap="round" strokeLinejoin="round" d="M21 10.5l-9 6-9-6" /></svg>
-                      <span className="text-base font-bold text-red-600">Contact Us</span>
-                      <span className="text-xs text-red-500 text-center">for more options</span>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-            );
-          })
-        ) : category === 'outerwear' ? (
-          OUTERWEAR_SUPPLIERS.map((supplier) => {
-            const supplierProducts = categoryProducts.filter(p => p.supplier === supplier);
-            const cards: (typeof supplierProducts[number] | null)[] = supplierProducts.slice(0, 4);
-            return (
-              <div key={supplier} className="mb-16">
-                <h2 className="text-2xl font-bold mb-6 text-gray-900">{supplier}</h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                  {cards.map((product, idx) =>
-                    product ? (
-                      <button
-                        key={product.id}
-                        className="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition-shadow border border-gray-100 flex flex-col items-center p-4 min-h-[240px] w-full focus:outline-none group"
-                        onClick={() => setModalProduct(product)}
-                        type="button"
-                      >
-                        <div className="relative w-36 h-36 mb-3 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform">
-                          <Image
-                            src={product.image}
-                            alt={product.name}
-                            fill
-                            className="object-contain"
-                          />
-                        </div>
-                        <div className="w-full text-base font-semibold text-gray-900 text-center truncate" title={product.name}>{product.name}</div>
-                        {product.brand && <div className="w-full text-xs text-gray-500 text-center truncate" title={product.brand}>{product.brand}</div>}
-                      </button>
-                    ) : (
-                      <div key={idx} className="bg-gray-50 rounded-xl border border-dashed border-gray-200 flex flex-col items-center justify-center min-h-[240px] p-4 opacity-60">
-                        <span className="text-gray-300 text-3xl">—</span>
-                      </div>
-                    )
-                  )}
-                  {/* Contact Us Card */}
-                  <Link href="/#contact" className="bg-red-50 border-2 border-red-200 rounded-xl flex flex-col items-center justify-center min-h-[240px] p-4 hover:bg-red-100 transition-colors group">
-                    <div className="flex flex-col items-center">
-                      <svg className="w-10 h-10 text-red-500 mb-2 group-hover:text-red-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M21 10.5V6.75A2.25 2.25 0 0018.75 4.5h-13.5A2.25 2.25 0 003 6.75v10.5A2.25 2.25 0 005.25 19.5h6.75" /><path strokeLinecap="round" strokeLinejoin="round" d="M21 10.5l-9 6-9-6" /></svg>
-                      <span className="text-base font-bold text-red-600">Contact Us</span>
-                      <span className="text-xs text-red-500 text-center">for more options</span>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-            );
-          })
-        ) : category === 'workwear' ? (
-          WORKWEAR_SUPPLIERS.map((supplier) => {
-            const supplierProducts = categoryProducts.filter(p => p.supplier === supplier);
-            const cards: (typeof supplierProducts[number] | null)[] = supplierProducts.slice(0, 4);
-            return (
-              <div key={supplier} className="mb-16">
-                <h2 className="text-2xl font-bold mb-6 text-gray-900">{supplier}</h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-                  {cards.map((product, idx) =>
-                    product ? (
-                      <button
-                        key={product.id}
-                        className="bg-white rounded-xl overflow-hidden shadow hover:shadow-lg transition-shadow border border-gray-100 flex flex-col items-center p-4 min-h-[240px] w-full focus:outline-none group"
-                        onClick={() => setModalProduct(product)}
-                        type="button"
-                      >
-                        <div className="relative w-36 h-36 mb-3 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden group-hover:scale-105 transition-transform">
-                          <Image
-                            src={product.image}
-                            alt={product.name}
-                            fill
-                            className="object-contain"
-                          />
-                        </div>
-                        <div className="w-full text-base font-semibold text-gray-900 text-center truncate" title={product.name}>{product.name}</div>
-                        {product.brand && <div className="w-full text-xs text-gray-500 text-center truncate" title={product.brand}>{product.brand}</div>}
-                      </button>
-                    ) : (
-                      <div key={idx} className="bg-gray-50 rounded-xl border border-dashed border-gray-200 flex flex-col items-center justify-center min-h-[240px] p-4 opacity-60">
-                        <span className="text-gray-300 text-3xl">—</span>
-                      </div>
-                    )
+                    ) : null
                   )}
                   {/* Contact Us Card */}
                   <Link href="/#contact" className="bg-red-50 border-2 border-red-200 rounded-xl flex flex-col items-center justify-center min-h-[240px] p-4 hover:bg-red-100 transition-colors group">
