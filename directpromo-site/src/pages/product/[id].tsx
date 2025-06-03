@@ -54,7 +54,7 @@ export default function ProductDetails() {
   }
 
   const totalQuantity = sizeQuantities.reduce((sum, sq) => sum + sq.quantity, 0);
-  const totalPrice = totalQuantity * (product.price ?? 0);
+  const totalPrice = totalQuantity * (product?.price ?? 0);
 
   const updateQuantity = (size: string, quantity: number) => {
     setSizeQuantities(prev =>
@@ -94,8 +94,8 @@ export default function ProductDetails() {
   return (
     <div className="min-h-screen bg-white">
       <Head>
-        <title>{product.name} - DirectPromo</title>
-        <meta name="description" content={product.description} />
+        <title>{product?.name ?? 'Product'} - DirectPromo</title>
+        <meta name="description" content={product?.description ?? ''} />
       </Head>
 
       {/* Breadcrumb */}
@@ -105,11 +105,11 @@ export default function ProductDetails() {
           <span className="mx-2">→</span>
           <Link href="/category/apparel" className="hover:text-red-600">Products</Link>
           <span className="mx-2">→</span>
-          <Link href={`/category/${product.category}`} className="hover:text-red-600">
-            {product.category.charAt(0).toUpperCase() + product.category.slice(1)}
+          <Link href={`/category/${product?.category ?? ''}`} className="hover:text-red-600">
+            {(product?.category ?? '').charAt(0).toUpperCase() + (product?.category ?? '').slice(1)}
           </Link>
           <span className="mx-2">→</span>
-          <span className="text-gray-900">{product.name}</span>
+          <span className="text-gray-900">{product?.name ?? 'Product'}</span>
         </div>
       </div>
 
@@ -120,8 +120,8 @@ export default function ProductDetails() {
           <div className="space-y-4">
             <div className="w-full h-[300px] bg-gray-100 rounded-lg overflow-hidden relative flex items-center justify-center">
               <img
-                src={isTShirt ? tshirtMockup.image : product.image}
-                alt={product.name}
+                src={isTShirt ? tshirtMockup.image : product?.image ?? ''}
+                alt={product?.name ?? 'Product'}
                 className="w-full h-full object-contain"
               />
               {/* Logo overlay */}
@@ -181,11 +181,15 @@ export default function ProductDetails() {
 
           {/* Product Info */}
           <div>
-            <h1 className="text-4xl font-extrabold text-gray-900 mb-4">{product.name}</h1>
+            <h1 className="text-4xl font-extrabold text-gray-900 mb-4">{product?.name ?? 'Product'}</h1>
             <div className="text-2xl text-gray-900 mb-6">
-              From <span className="font-extrabold">${product.price.toFixed(2)}</span>
+              {product?.price !== undefined ? (
+                <>From <span className="font-extrabold">${(product?.price ?? 0).toFixed(2)}</span></>
+              ) : (
+                <span className="italic text-gray-400">Call for Pricing</span>
+              )}
             </div>
-            <p className="text-gray-600 mb-8">{product.description}</p>
+            <p className="text-gray-600 mb-8">{product?.description ?? ''}</p>
 
             {/* Features */}
             <div className="mb-8">
@@ -195,7 +199,7 @@ export default function ProductDetails() {
                 <li>• Pre-shrunk fabric</li>
                 <li>• Seamless collar</li>
                 <li>• Double-needle stitching throughout</li>
-                <li>• Available in men's, women's, and unisex styles</li>
+                <li>• Available in men&apos;s, women&apos;s, and unisex styles</li>
                 <li>• Screen printing, embroidery, or heat transfer options</li>
               </ul>
             </div>
@@ -204,7 +208,7 @@ export default function ProductDetails() {
             <div className="mb-8">
               <h2 className="text-xl font-extrabold mb-4">Color</h2>
               <div className="flex flex-wrap gap-3">
-                {product.colors.map(color => (
+                {(product?.colors ?? []).map(color => (
                   <button
                     key={color}
                     onClick={() => setSelectedColor(color)}
@@ -270,7 +274,7 @@ export default function ProductDetails() {
                   </div>
 
                   <div className="text-sm text-gray-600">
-                    Minimum order: {product.minOrder} units
+                    Minimum order: {product?.minOrder ?? 1} units
                   </div>
                 </div>
               ) : (
