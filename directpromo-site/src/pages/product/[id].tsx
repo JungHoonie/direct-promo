@@ -65,8 +65,9 @@ export default function ProductDetails() {
   };
 
   const handleAddToCart = () => {
-    if (totalQuantity < product.minOrder) {
-      alert(`Minimum order quantity is ${product.minOrder} units`);
+    const minOrder = product?.minOrder ?? 1; // Default to 1 if minOrder is undefined
+    if (totalQuantity < minOrder) {
+      alert(`Minimum order quantity is ${minOrder} units`);
       return;
     }
     if (!selectedColor) {
@@ -282,15 +283,15 @@ export default function ProductDetails() {
             {/* Add to Cart Button */}
             <button
               onClick={handleAddToCart}
-              disabled={totalQuantity < product.minOrder || !selectedColor}
+              disabled={totalQuantity < (product?.minOrder ?? 1) || !selectedColor}
               className={`w-full py-4 px-8 rounded-lg text-white font-semibold ${
-                totalQuantity >= product.minOrder && selectedColor
+                totalQuantity >= (product?.minOrder ?? 1) && selectedColor
                   ? 'bg-red-600 hover:bg-red-700'
                   : 'bg-gray-400 cursor-not-allowed'
               }`}
             >
-              {totalQuantity < product.minOrder
-                ? `Minimum ${product.minOrder} units required`
+              {totalQuantity < (product?.minOrder ?? 1)
+                ? `Minimum ${product?.minOrder ?? 1} units required`
                 : !selectedColor
                 ? 'Select a color'
                 : 'Add to Cart'}
