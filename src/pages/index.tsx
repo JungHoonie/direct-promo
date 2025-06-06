@@ -506,12 +506,12 @@ export default function Home() {
             <div className="space-y-4">
               {/* FAQ Accordion */}
               <details className="bg-white rounded-xl shadow p-6 group">
-                <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">I don't see the type of apparel I want &mdash; can you source other items?</summary>
-                <p className="mt-2 text-gray-700">Yes! While our website showcases a curated selection of popular products, we have access to thousands more through our trusted suppliers. Whether you're looking for a specific brand, cut, fabric, or specialty item, just reach out &mdash; we'll be happy to help you find the perfect fit.</p>
+                <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">I don&#39;t see the type of apparel I want &mdash; can you source other items?</summary>
+                <p className="mt-2 text-gray-700">Yes! While our website showcases a curated selection of popular products, we have access to thousands more through our trusted suppliers. Whether you&#39;re looking for a specific brand, cut, fabric, or specialty item, just reach out &mdash; we&#39;ll be happy to help you find the perfect fit.</p>
               </details>
               <details className="bg-white rounded-xl shadow p-6 group">
                 <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">What are the expected delivery times?</summary>
-                <p className="mt-2 text-gray-700">Delivery timelines typically range from 7 to 15 business days, depending on the product, quantity, and customization required. Rush orders may be available upon request. Once you request a quote, we'll provide a clear timeline with estimated delivery dates tailored to your order.</p>
+                <p className="mt-2 text-gray-700">Delivery timelines typically range from 7 to 15 business days, depending on the product, quantity, and customization required. Rush orders may be available upon request. Once you request a quote, we&#39;ll provide a clear timeline with estimated delivery dates tailored to your order.</p>
               </details>
               <details className="bg-white rounded-xl shadow p-6 group">
                 <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">Who are your suppliers?</summary>
@@ -519,15 +519,15 @@ export default function Home() {
               </details>
               <details className="bg-white rounded-xl shadow p-6 group">
                 <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">Can I see a sample before placing a large order?</summary>
-                <p className="mt-2 text-gray-700">Absolutely. We offer samples on most items so you can review quality, fit, and finish before committing to a larger run. Let us know what you're considering and we'll walk you through the sample request process.</p>
+                <p className="mt-2 text-gray-700">Absolutely. We offer samples on most items so you can review quality, fit, and finish before committing to a larger run. Let us know what you&#39;re considering and we&#39;ll walk you through the sample request process.</p>
               </details>
               <details className="bg-white rounded-xl shadow p-6 group">
                 <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">What kind of artwork files do you accept?</summary>
-                <p className="mt-2 text-gray-700">We prefer vector files (AI, EPS, or PDF), but we can also work with high-resolution PNG or JPG images. If you're unsure, send us what you have &mdash; our design team can help convert your logo or artwork to the required format.</p>
+                <p className="mt-2 text-gray-700">We prefer vector files (AI, EPS, or PDF), but we can also work with high-resolution PNG or JPG images. If you&#39;re unsure, send us what you have &mdash; our design team can help convert your logo or artwork to the required format.</p>
               </details>
               <details className="bg-white rounded-xl shadow p-6 group">
                 <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">Is there a minimum order quantity (MOQ)?</summary>
-                <p className="mt-2 text-gray-700">MOQs vary depending on the product and supplier, but many items start at as few as 12 or 24 units. We'll confirm specific MOQs when you request a quote.</p>
+                <p className="mt-2 text-gray-700">MOQs vary depending on the product and supplier, but many items start at as few as 12 or 24 units. We&#39;ll confirm specific MOQs when you request a quote.</p>
               </details>
             </div>
           </div>
