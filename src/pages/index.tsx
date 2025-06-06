@@ -257,7 +257,7 @@ export default function Home() {
         <section className="sr-only">
           <div className="container mx-auto">
             <p>
-              DirectPromo is Toronto's trusted source for custom promotional products, branded pens, and business apparel. With over 25 years of experience, we help businesses boost their marketing with high-quality, fast-turnaround branded merchandise. From custom t-shirts and jackets to eco-friendly drinkware and tech accessories, our expert team delivers exceptional service and value for every order. We specialize in helping organizations of all sizes stand out with branded marketing products that leave a lasting impression.
+              DirectPromo is Toronto&apos;s trusted source for custom promotional products, branded pens, and business apparel. With over 25 years of experience, we help businesses boost their marketing with high-quality, fast-turnaround branded merchandise. From custom t-shirts and jackets to eco-friendly drinkware and tech accessories, our expert team delivers exceptional service and value for every order. We specialize in helping organizations of all sizes stand out with branded marketing products that leave a lasting impression.
             </p>
           </div>
         </section>
