@@ -47,7 +47,7 @@ const categories = [
 const allCategories = [...categories, {
   id: 'custom',
   name: 'Custom Request',
-  description: "Don&apos;t see what you&apos;re looking for? We can help source and customize almost anything.",
+  description: "Don't see what you're looking for? We can help source and customize almost anything.",
   isCustom: true
 }];
 
@@ -103,14 +103,14 @@ export default function Home() {
         <meta name="description" content="DirectPromo offers custom promotional products, branded pens, and business apparel for effective marketing. Fast turnaround and expert service in Toronto." />
         {/* SEO: Open Graph tags for Facebook */}
         <meta property="og:title" content="DirectPromo | Promotional Products, Custom Pens and Branded Apparel" />
-        <meta property="og:description" content="Toronto&apos;s source for custom promotional products, branded pens, and business apparel. Fast turnaround and expert service." />
+        <meta property="og:description" content="Toronto's source for custom promotional products, branded pens, and business apparel. Fast turnaround and expert service." />
         <meta property="og:image" content="https://yourdomain.com/images/og-image.jpg" />
         <meta property="og:url" content="https://yourdomain.com/" />
         <meta property="og:type" content="website" />
         {/* SEO: Twitter Card tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="DirectPromo | Promotional Products, Custom Pens and Branded Apparel" />
-        <meta name="twitter:description" content="Toronto&apos;s source for custom promotional products, branded pens, and business apparel." />
+        <meta name="twitter:description" content="Toronto's source for custom promotional products, branded pens, and business apparel." />
         <meta name="twitter:image" content="https://yourdomain.com/images/og-image.jpg" />
         {/* SEO: Canonical URL */}
         <link rel="canonical" href="https://yourdomain.com/" />
@@ -132,7 +132,7 @@ export default function Home() {
               "addressCountry": "CA"
             },
             "url": "https://yourdomain.com/",
-            "description": "Toronto&apos;s trusted source for custom promotional products, branded pens, and business apparel."
+            "description": "Toronto's trusted source for custom promotional products, branded pens, and business apparel."
           })
         }} />
         {/* FAQPage Schema for rich results */}
@@ -143,10 +143,10 @@ export default function Home() {
             "mainEntity": [
               {
                 "@type": "Question",
-                "name": "I don&apos;t see the type of apparel I want — can you source other items?",
+                "name": "I don't see the type of apparel I want — can you source other items?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Yes! While our website showcases a curated selection of popular products, we have access to thousands more through our trusted suppliers. Whether you&apos;re looking for a specific brand, cut, fabric, or specialty item, just reach out — we&apos;ll be happy to help you find the perfect fit."
+                  "text": "Yes! While our website showcases a curated selection of popular products, we have access to thousands more through our trusted suppliers. Whether you're looking for a specific brand, cut, fabric, or specialty item, just reach out — we'll be happy to help you find the perfect fit."
                 }
               },
               {
@@ -154,7 +154,7 @@ export default function Home() {
                 "name": "What are the expected delivery times?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Delivery timelines typically range from 7 to 15 business days, depending on the product, quantity, and customization required. Rush orders may be available upon request. Once you request a quote, we&apos;ll provide a clear timeline with estimated delivery dates tailored to your order."
+                  "text": "Delivery timelines typically range from 7 to 15 business days, depending on the product, quantity, and customization required. Rush orders may be available upon request. Once you request a quote, we'll provide a clear timeline with estimated delivery dates tailored to your order."
                 }
               },
               {
@@ -170,7 +170,7 @@ export default function Home() {
                 "name": "Can I see a sample before placing a large order?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Absolutely. We offer samples on most items so you can review quality, fit, and finish before committing to a larger run. Let us know what you&apos;re considering and we&apos;ll walk you through the sample request process."
+                  "text": "Absolutely. We offer samples on most items so you can review quality, fit, and finish before committing to a larger run. Let us know what you're considering and we'll walk you through the sample request process."
                 }
               },
               {
@@ -178,7 +178,7 @@ export default function Home() {
                 "name": "What kind of artwork files do you accept?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "We prefer vector files (AI, EPS, or PDF), but we can also work with high-resolution PNG or JPG images. If you&apos;re unsure, send us what you have — our design team can help convert your logo or artwork to the required format."
+                  "text": "We prefer vector files (AI, EPS, or PDF), but we can also work with high-resolution PNG or JPG images. If you're unsure, send us what you have — our design team can help convert your logo or artwork to the required format."
                 }
               },
               {
@@ -186,7 +186,7 @@ export default function Home() {
                 "name": "Is there a minimum order quantity (MOQ)?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "MOQs vary depending on the product and supplier, but many items start at as few as 12 or 24 units. We&apos;ll confirm specific MOQs when you request a quote."
+                  "text": "MOQs vary depending on the product and supplier, but many items start at as few as 12 or 24 units. We'll confirm specific MOQs when you request a quote."
                 }
               }
             ]
@@ -224,7 +224,7 @@ export default function Home() {
             <div className="flex-1 pr-0 md:pr-8 w-full md:w-auto relative z-10">
               {/* SEO: H1 with keywords */}
               <h1 className="text-5xl font-extrabold mb-4 text-[#1F2937] leading-none md:leading-tight">
-                Promotional Products and Custom Branded Apparel in Toronto
+                Promotional Products and Custom Branded Apparel in the GTA
               </h1>
               {/* SEO: Supporting paragraph with keywords */}
               <p className="text-xl mb-8 text-[#6B7280]">
@@ -257,7 +257,7 @@ export default function Home() {
         <section className="sr-only">
           <div className="container mx-auto">
             <p>
-              DirectPromo is Toronto&apos;s trusted source for custom promotional products, branded pens, and business apparel. With over 25 years of experience, we help businesses boost their marketing with high-quality, fast-turnaround branded merchandise. From custom t-shirts and jackets to eco-friendly drinkware and tech accessories, our expert team delivers exceptional service and value for every order. We specialize in helping organizations of all sizes stand out with branded marketing products that leave a lasting impression.
+              DirectPromo is Toronto's trusted source for custom promotional products, branded pens, and business apparel. With over 25 years of experience, we help businesses boost their marketing with high-quality, fast-turnaround branded merchandise. From custom t-shirts and jackets to eco-friendly drinkware and tech accessories, our expert team delivers exceptional service and value for every order. We specialize in helping organizations of all sizes stand out with branded marketing products that leave a lasting impression.
             </p>
           </div>
         </section>
@@ -312,7 +312,7 @@ export default function Home() {
                   {
                     icon: "/icons/location.svg",
                     title: "Toronto Local",
-                    desc: "We&apos;re centrally located in Toronto.",
+                    desc: "We're centrally located in the GTA.",
                   },
                   {
                     icon: "/icons/team.svg",
@@ -326,12 +326,12 @@ export default function Home() {
                   },
                   {
                     icon: "/icons/shipping.svg",
-                    title: "Serving Toronto & Canada-Wide",
+                    title: "Serving The GTA and Canada Wide",
                     desc: "Fast shipping across the country.",
                   },
                   {
                     icon: "/icons/speed.svg",
-                    title: "High Quality & Speed",
+                    title: "High Quality and Speed",
                     desc: "Quick turnarounds without compromising quality.",
                   },
                 ].map((item, index) => (
@@ -401,7 +401,7 @@ export default function Home() {
           <div className="container mx-auto px-4 max-w-4xl">
             <h2 className="text-3xl font-extrabold text-center mb-4 text-white">Trusted by Businesses for Over 25 Years</h2>
             <p className="text-lg text-center text-white mb-10">
-              With decades of experience in promotional marketing, DirectPromo has proudly helped thousands of organizations stand out with high-quality, custom-branded products. See what our clients are saying:
+              With decades of experience in promotional marketing, DirectPromo has proudly helped hundreds of organizations stand out with high-quality, custom-branded products. See what our clients are saying:
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-0">
               {/* Testimonial 1 */}
@@ -414,14 +414,14 @@ export default function Home() {
               {/* Testimonial 2 */}
               <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
                 <div className="text-[#FBBF24] text-xl mb-2">⭐️⭐️⭐️⭐️⭐️</div>
-                <p className="text-gray-700 mb-4">&quot;We ordered branded pens from Direct Promo for our event and they were a big hit! Roger made everything simple, and the pens were top quality. We&apos;ll definitely be coming back for our next order!&quot;</p>
+                <p className="text-gray-700 mb-4">&quot;We ordered branded caps from Direct Promo for our event and they were a big hit! Roger made everything simple, and the caps were top quality. We'll definitely be coming back for our next order!&quot;</p>
                 <div className="font-semibold text-[#1F2937]">Samantha T.</div>
                 <div className="text-sm text-gray-700">Business Owner</div>
               </div>
               {/* Testimonial 3 */}
               <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
                 <div className="text-[#FBBF24] text-xl mb-2">⭐️⭐️⭐️⭐️⭐️</div>
-                <p className="text-gray-700 mb-4">&quot;We loved the custom mugs from Direct Promo! The logo was sharp, the mugs were durable, and Roger ensured everything arrived on time. Exceptional service all around!&quot;</p>
+                <p className="text-gray-700 mb-4">&quot;We loved the custom t-shirts from Direct Promo! The logo was sharp, the t-shirts were durable, and Roger ensured everything arrived on time. Exceptional service all around!&quot;</p>
                 <div className="font-semibold text-[#1F2937]">James L.</div>
                 <div className="text-sm text-gray-700">Event Coordinator</div>
               </div>
@@ -506,12 +506,12 @@ export default function Home() {
             <div className="space-y-4">
               {/* FAQ Accordion */}
               <details className="bg-white rounded-xl shadow p-6 group">
-                <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">I don&apos;t see the type of apparel I want &mdash; can you source other items?</summary>
-                <p className="mt-2 text-gray-700">Yes! While our website showcases a curated selection of popular products, we have access to thousands more through our trusted suppliers. Whether you&apos;re looking for a specific brand, cut, fabric, or specialty item, just reach out &mdash; we&apos;ll be happy to help you find the perfect fit.</p>
+                <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">I don't see the type of apparel I want &mdash; can you source other items?</summary>
+                <p className="mt-2 text-gray-700">Yes! While our website showcases a curated selection of popular products, we have access to thousands more through our trusted suppliers. Whether you're looking for a specific brand, cut, fabric, or specialty item, just reach out &mdash; we'll be happy to help you find the perfect fit.</p>
               </details>
               <details className="bg-white rounded-xl shadow p-6 group">
                 <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">What are the expected delivery times?</summary>
-                <p className="mt-2 text-gray-700">Delivery timelines typically range from 7 to 15 business days, depending on the product, quantity, and customization required. Rush orders may be available upon request. Once you request a quote, we&apos;ll provide a clear timeline with estimated delivery dates tailored to your order.</p>
+                <p className="mt-2 text-gray-700">Delivery timelines typically range from 7 to 15 business days, depending on the product, quantity, and customization required. Rush orders may be available upon request. Once you request a quote, we'll provide a clear timeline with estimated delivery dates tailored to your order.</p>
               </details>
               <details className="bg-white rounded-xl shadow p-6 group">
                 <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">Who are your suppliers?</summary>
@@ -519,15 +519,15 @@ export default function Home() {
               </details>
               <details className="bg-white rounded-xl shadow p-6 group">
                 <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">Can I see a sample before placing a large order?</summary>
-                <p className="mt-2 text-gray-700">Absolutely. We offer samples on most items so you can review quality, fit, and finish before committing to a larger run. Let us know what you&apos;re considering and we&apos;ll walk you through the sample request process.</p>
+                <p className="mt-2 text-gray-700">Absolutely. We offer samples on most items so you can review quality, fit, and finish before committing to a larger run. Let us know what you're considering and we'll walk you through the sample request process.</p>
               </details>
               <details className="bg-white rounded-xl shadow p-6 group">
                 <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">What kind of artwork files do you accept?</summary>
-                <p className="mt-2 text-gray-700">We prefer vector files (AI, EPS, or PDF), but we can also work with high-resolution PNG or JPG images. If you&apos;re unsure, send us what you have &mdash; our design team can help convert your logo or artwork to the required format.</p>
+                <p className="mt-2 text-gray-700">We prefer vector files (AI, EPS, or PDF), but we can also work with high-resolution PNG or JPG images. If you're unsure, send us what you have &mdash; our design team can help convert your logo or artwork to the required format.</p>
               </details>
               <details className="bg-white rounded-xl shadow p-6 group">
                 <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">Is there a minimum order quantity (MOQ)?</summary>
-                <p className="mt-2 text-gray-700">MOQs vary depending on the product and supplier, but many items start at as few as 12 or 24 units. We&apos;ll confirm specific MOQs when you request a quote.</p>
+                <p className="mt-2 text-gray-700">MOQs vary depending on the product and supplier, but many items start at as few as 12 or 24 units. We'll confirm specific MOQs when you request a quote.</p>
               </details>
             </div>
           </div>
@@ -561,7 +561,7 @@ export default function Home() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                  <textarea name="message" required rows={4} className="w-full px-3 py-2 border rounded-md" placeholder="Tell us what you&apos;re looking for, or ask a question!" />
+                  <textarea name="message" required rows={4} className="w-full px-3 py-2 border rounded-md" placeholder="Tell us what you're looking for, or ask a question!" />
                 </div>
                 <button type="submit" className="w-full bg-red-600 text-white py-3 px-6 rounded-md font-medium hover:bg-red-700 transition-colors">Request a Quote</button>
               </form>
@@ -569,7 +569,7 @@ export default function Home() {
               <div className="bg-white rounded-lg shadow-md p-8 flex flex-col items-center justify-center space-y-6">
                 <div className="text-green-600 text-3xl mb-2">✓</div>
                 <div className="text-2xl font-bold text-gray-900 mb-2 text-center">Thank you! Your message has been sent.</div>
-                <div className="text-gray-700 text-center mb-4">We appreciate your interest. We&apos;ll get back to you as soon as possible.</div>
+                <div className="text-gray-700 text-center mb-4">We appreciate your interest. We'll get back to you as soon as possible.</div>
                 <button onClick={handleResetForm} className="bg-red-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-red-700 transition-colors">Submit another response</button>
               </div>
             )}
