@@ -257,7 +257,7 @@ export default function Home() {
         <section className="sr-only">
           <div className="container mx-auto">
             <p>
-              DirectPromo is Toronto&apos;s trusted source for custom promotional products, branded pens, and business apparel. With over 25 years of experience, we help businesses boost their marketing with high-quality, fast-turnaround branded merchandise. From custom t-shirts and jackets to eco-friendly drinkware and tech accessories, our expert team delivers exceptional service and value for every order. We specialize in helping organizations of all sizes stand out with branded marketing products that leave a lasting impression.
+              DirectPromo is Toronto&#39;s trusted source for custom promotional products, branded pens, and business apparel. With over 25 years of experience, we help businesses boost their marketing with high-quality, fast-turnaround branded merchandise. From custom t-shirts and jackets to eco-friendly drinkware and tech accessories, our expert team delivers exceptional service and value for every order. We specialize in helping organizations of all sizes stand out with branded marketing products that leave a lasting impression.
             </p>
           </div>
         </section>
@@ -414,7 +414,7 @@ export default function Home() {
               {/* Testimonial 2 */}
               <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center">
                 <div className="text-[#FBBF24] text-xl mb-2">⭐️⭐️⭐️⭐️⭐️</div>
-                <p className="text-gray-700 mb-4">&quot;We ordered branded caps from Direct Promo for our event and they were a big hit! Roger made everything simple, and the caps were top quality. We&apos;ll definitely be coming back for our next order!&quot;</p>
+                <p className="text-gray-700 mb-4">&quot;We ordered branded caps from Direct Promo for our event and they were a big hit! Roger made everything simple, and the caps were top quality. We&#39;ll definitely be coming back for our next order!&quot;</p>
                 <div className="font-semibold text-[#1F2937]">Samantha T.</div>
                 <div className="text-sm text-gray-700">Business Owner</div>
               </div>
@@ -561,7 +561,7 @@ export default function Home() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                  <textarea name="message" required rows={4} className="w-full px-3 py-2 border rounded-md" placeholder="Tell us what you&apos;re looking for, or ask a question!" />
+                  <textarea name="message" required rows={4} className="w-full px-3 py-2 border rounded-md" placeholder="Tell us what you&#39;re looking for, or ask a question!" />
                 </div>
                 <button type="submit" className="w-full bg-red-600 text-white py-3 px-6 rounded-md font-medium hover:bg-red-700 transition-colors">Request a Quote</button>
               </form>
@@ -569,7 +569,7 @@ export default function Home() {
               <div className="bg-white rounded-lg shadow-md p-8 flex flex-col items-center justify-center space-y-6">
                 <div className="text-green-600 text-3xl mb-2">✓</div>
                 <div className="text-2xl font-bold text-gray-900 mb-2 text-center">Thank you! Your message has been sent.</div>
-                <div className="text-gray-700 text-center mb-4">We appreciate your interest. We&apos;ll get back to you as soon as possible.</div>
+                <div className="text-gray-700 text-center mb-4">We appreciate your interest. We&#39;ll get back to you as soon as possible.</div>
                 <button onClick={handleResetForm} className="bg-red-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-red-700 transition-colors">Submit another response</button>
               </div>
             )}
