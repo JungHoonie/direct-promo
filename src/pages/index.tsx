@@ -363,7 +363,7 @@ export default function Home() {
                     <div className={`bg-white text-[#1F2937] rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] transition-shadow cursor-pointer w-full max-w-[400px] flex flex-col justify-between p-6 md:p-8 overflow-hidden relative min-h-[420px] mx-auto ${isCustom ? 'border-2 border-red-200' : ''}`}>
                       <div className="pb-2">
                         <h3 className="text-2xl font-bold text-[#1F2937] mb-2">{category.name}</h3>
-                        <p className="text-base text-gray-700 mb-4">{category.description.replace(/'/g, "&apos;")}</p>
+                        <p className="text-base text-gray-700 mb-4">{isCustom ? category.description : category.description.replace(/'/g, "&apos;")}</p>
                       </div>
                       <div className="flex-1 flex items-center justify-center">
                         {isCustom ? (
