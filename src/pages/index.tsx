@@ -37,7 +37,7 @@ const categories = [
   {
     id: 'accessories',
     name: 'Accessories',
-    description: 'Bags, drinkware, and promotional items',
+    description: 'Bags, drinkware, and branded essentials - sustainable extras that make a lasting impression.',
     image: '/images/categories/accessories_dp.jpeg',
     count: 0
   }
@@ -224,7 +224,7 @@ export default function Home() {
             <div className="flex-1 pr-0 md:pr-8 w-full md:w-auto relative z-10">
               {/* SEO: H1 with keywords */}
               <h1 className="text-5xl font-extrabold mb-4 text-[#1F2937] leading-none md:leading-tight">
-                Promotional Products and Custom Branded Apparel in the GTA
+                Promotional Products and Custom Branded Apparel<br />In the GTA
               </h1>
               {/* SEO: Supporting paragraph with keywords */}
               <p className="text-xl mb-8 text-[#6B7280]">
@@ -544,23 +544,23 @@ export default function Home() {
                   <div className="bg-red-100 border border-red-300 text-red-700 px-4 py-2 rounded mb-2 text-center">{formError}</div>
                 )}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
+                  <label className="block text-lg font-bold text-gray-700 mb-1">Company Name</label>
                   <input name="company" type="text" required className="w-full px-3 py-2 border rounded-md" placeholder="Your company or organization" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                  <label className="block text-lg font-bold text-gray-700 mb-1">Name</label>
                   <input name="name" type="text" required className="w-full px-3 py-2 border rounded-md" placeholder="Your name" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <label className="block text-lg font-bold text-gray-700 mb-1">Email</label>
                   <input name="email" type="email" required className="w-full px-3 py-2 border rounded-md" placeholder="you@email.com" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number <span className="text-gray-400 font-normal">(optional)</span></label>
+                  <label className="block text-lg font-bold text-gray-700 mb-1">Phone Number <span className="text-gray-400 font-normal">(optional)</span></label>
                   <input name="phone" type="tel" className="w-full px-3 py-2 border rounded-md" placeholder="(416) 895-0929" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                  <label className="block text-lg font-bold text-gray-700 mb-1">Message</label>
                   <textarea name="message" required rows={4} className="w-full px-3 py-2 border rounded-md" placeholder="Tell us what you&#39;re looking for, or ask a question!" />
                 </div>
                 <button type="submit" className="w-full bg-red-600 text-white py-3 px-6 rounded-md font-medium hover:bg-red-700 transition-colors">Request a Quote</button>
