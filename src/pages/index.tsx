@@ -544,23 +544,23 @@ export default function Home() {
                   <div className="bg-red-100 border border-red-300 text-red-700 px-4 py-2 rounded mb-2 text-center">{formError}</div>
                 )}
                 <div>
-                  <label className="block text-lg font-bold text-gray-700 mb-1">Company Name</label>
+                  <label className="block text-xl font-extrabold text-gray-700 mb-1">Company Name</label>
                   <input name="company" type="text" required className="w-full px-3 py-2 border rounded-md" placeholder="Your company or organization" />
                 </div>
                 <div>
-                  <label className="block text-lg font-bold text-gray-700 mb-1">Name</label>
+                  <label className="block text-xl font-extrabold text-gray-700 mb-1">Name</label>
                   <input name="name" type="text" required className="w-full px-3 py-2 border rounded-md" placeholder="Your name" />
                 </div>
                 <div>
-                  <label className="block text-lg font-bold text-gray-700 mb-1">Email</label>
+                  <label className="block text-xl font-extrabold text-gray-700 mb-1">Email</label>
                   <input name="email" type="email" required className="w-full px-3 py-2 border rounded-md" placeholder="you@email.com" />
                 </div>
                 <div>
-                  <label className="block text-lg font-bold text-gray-700 mb-1">Phone Number <span className="text-gray-400 font-normal">(optional)</span></label>
+                  <label className="block text-xl font-extrabold text-gray-700 mb-1">Phone Number <span className="text-gray-400 font-normal">(optional)</span></label>
                   <input name="phone" type="tel" className="w-full px-3 py-2 border rounded-md" placeholder="(416) 895-0929" />
                 </div>
                 <div>
-                  <label className="block text-lg font-bold text-gray-700 mb-1">Message</label>
+                  <label className="block text-xl font-extrabold text-gray-700 mb-1">Message</label>
                   <textarea name="message" required rows={4} className="w-full px-3 py-2 border rounded-md" placeholder="Tell us what you&#39;re looking for, or ask a question!" />
                 </div>
                 <button type="submit" className="w-full bg-red-600 text-white py-3 px-6 rounded-md font-medium hover:bg-red-700 transition-colors">Request a Quote</button>
