@@ -57,7 +57,7 @@ export default function CategoryPage() {
       default:
         return {
           title: 'Accessories Collection',
-          description: 'Bags, drinkware, and branded essentials&mdash;sustainable extras that make a lasting impression.',
+          description: 'Bags, drinkware, and branded essentials - sustainable extras that make a lasting impression.',
           image: '/images/categories/accessories_dp.jpeg'
         };
     }
