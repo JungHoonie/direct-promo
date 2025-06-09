@@ -359,7 +359,7 @@ export default function Home() {
                 const isCustom = "isCustom" in category && category.isCustom;
                 const hasImage = "image" in category;
                 return (
-                  <Link href={isCustom ? "#contact" : `/category/${category.id}`} key={category.id}>
+                  <Link href={isCustom ? "#contact" : `/category/${category.id}`} key={category.id} onClick={() => { window.dataLayer && window.dataLayer.push({ event: isCustom ? 'contact_us_card_click' : 'category_card_click', category: category.name }); }}>
                     <div className={`bg-white text-[#1F2937] rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] transition-shadow cursor-pointer w-full max-w-[400px] flex flex-col justify-between p-6 md:p-8 overflow-hidden relative min-h-[420px] mx-auto ${isCustom ? 'border-2 border-red-200' : ''}`}>
                       <div className="pb-2">
                         <h3 className="text-2xl font-bold text-[#1F2937] mb-2">{category.name}</h3>
@@ -384,7 +384,7 @@ export default function Home() {
                         )}
                       </div>
                       <div className="flex justify-end items-end pt-2">
-                        <button className={`${isCustom ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-gray-100 hover:bg-red-600 hover:text-white'} text-gray-900 px-5 py-2 rounded-lg font-semibold shadow transition-colors flex items-center gap-2`}>
+                        <button className={`${isCustom ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-gray-100 hover:bg-red-600 hover:text-white'} text-gray-900 px-5 py-2 rounded-lg font-semibold shadow transition-colors flex items-center gap-2`} onClick={() => { window.dataLayer && window.dataLayer.push({ event: isCustom ? 'contact_us_button_click' : 'shop_now_click', category: category.name }); }}>
                           {isCustom ? 'Contact Us' : 'Shop Now'}
                         </button>
                       </div>
@@ -437,7 +437,7 @@ export default function Home() {
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-extrabold text-center mb-12 text-gray-900">Our Trusted Suppliers</h2>
             <div className="flex flex-wrap justify-center items-center gap-12">
-              <a href="https://canadasportswear.com" target="_blank" rel="noopener noreferrer" className="transition-transform hover:scale-105 w-40 h-20 flex items-center justify-center">
+              <a href="https://canadasportswear.com" target="_blank" rel="noopener noreferrer" className="transition-transform hover:scale-105 w-40 h-20 flex items-center justify-center" onClick={() => { window.dataLayer && window.dataLayer.push({ event: 'supplier_logo_click', supplier: 'Canada Sportswear' }); }}>
                 <Image
                   src="/images/categories/canadasportswear.avif"
                   alt="Canada Sportswear Logo"
@@ -505,7 +505,7 @@ export default function Home() {
             <h2 className="text-3xl font-extrabold text-center mb-8 text-gray-900">Frequently Asked Questions</h2>
             <div className="space-y-4">
               {/* FAQ Accordion */}
-              <details className="bg-white rounded-xl shadow p-6 group">
+              <details className="bg-white rounded-xl shadow p-6 group" onClick={() => { window.dataLayer && window.dataLayer.push({ event: 'faq_expand', question: 'I don\'t see the type of apparel I want - can you source other items?' }); }}>
                 <summary className="font-semibold text-lg cursor-pointer group-open:text-red-600">I don&#39;t see the type of apparel I want - can you source other items?</summary>
                 <p className="mt-2 text-gray-700">Yes! While our website showcases a curated selection of popular products, we have access to thousands more through our trusted suppliers. Whether you&#39;re looking for a specific brand, cut, fabric, or specialty item, just reach out - we&#39;ll be happy to help you find the perfect fit.</p>
               </details>
@@ -539,7 +539,7 @@ export default function Home() {
             <h2 className="text-4xl font-black text-center mb-4 text-gray-900" style={{ fontWeight: 900, letterSpacing: '-1px', textTransform: 'uppercase' }}>Ready to Get Started?</h2>
             <p className="text-center text-lg text-gray-700 mb-8">Fill out the form below, email us at <a href="mailto:directpromo@rogers.com" className="text-red-600 font-semibold hover:underline">directpromo@rogers.com</a> or call us at <a href="tel:+14168950929" className="text-red-600 font-semibold hover:underline">(416) 895-0929</a> to get your custom quote.</p>
             {!formSubmitted ? (
-              <form ref={formRef} className="bg-white rounded-lg shadow-md p-8 space-y-6" onSubmit={handleContactSubmit}>
+              <form ref={formRef} className="bg-white rounded-lg shadow-md p-8 space-y-6" onSubmit={e => { handleContactSubmit(e); window.dataLayer && window.dataLayer.push({ event: 'contact_form_submit' }); }}>
                 {formError && (
                   <div className="bg-red-100 border border-red-300 text-red-700 px-4 py-2 rounded mb-2 text-center">{formError}</div>
                 )}

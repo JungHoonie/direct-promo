@@ -17,16 +17,16 @@ export default function Header() {
         {/* Desktop Nav - Centered */}
         <div className="hidden lg:flex flex-1 justify-center">
           <div className="flex space-x-6">
-            <Link href="/#about-us" className="hover:text-red-600 font-extrabold transition-colors">About Us</Link>
-            <Link href="/#products" className="hover:text-red-600 font-extrabold transition-colors">Products</Link>
-            <Link href="/#testimonials" className="hover:text-red-600 font-extrabold transition-colors">Testimonials</Link>
-            <Link href="/#faq" className="hover:text-red-600 font-extrabold transition-colors">FAQ</Link>
-            <Link href="/#contact" className="hover:text-red-600 font-extrabold transition-colors">Contact</Link>
+            <Link href="/#about-us" className="hover:text-red-600 font-extrabold transition-colors" onClick={() => { window.dataLayer && window.dataLayer.push({ event: 'nav_click', nav_label: 'About Us' }); }}>About Us</Link>
+            <Link href="/#products" className="hover:text-red-600 font-extrabold transition-colors" onClick={() => { window.dataLayer && window.dataLayer.push({ event: 'nav_click', nav_label: 'Products' }); }}>Products</Link>
+            <Link href="/#testimonials" className="hover:text-red-600 font-extrabold transition-colors" onClick={() => { window.dataLayer && window.dataLayer.push({ event: 'nav_click', nav_label: 'Testimonials' }); }}>Testimonials</Link>
+            <Link href="/#faq" className="hover:text-red-600 font-extrabold transition-colors" onClick={() => { window.dataLayer && window.dataLayer.push({ event: 'nav_click', nav_label: 'FAQ' }); }}>FAQ</Link>
+            <Link href="/#contact" className="hover:text-red-600 font-extrabold transition-colors" onClick={() => { window.dataLayer && window.dataLayer.push({ event: 'nav_click', nav_label: 'Contact' }); }}>Contact</Link>
           </div>
         </div>
         {/* Desktop CTA Button */}
         <div className="hidden lg:flex items-center space-x-4 pr-4">
-          <Link href="/#contact" className="bg-red-600 text-white px-5 py-2 rounded font-extrabold hover:bg-red-700 transition-colors shadow-sm">
+          <Link href="/#contact" className="bg-red-600 text-white px-5 py-2 rounded font-extrabold hover:bg-red-700 transition-colors shadow-sm" onClick={() => { window.dataLayer && window.dataLayer.push({ event: 'request_quote_click' }); }}>
             Get a Quote
           </Link>
         </div>
