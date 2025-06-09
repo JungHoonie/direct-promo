@@ -4,7 +4,6 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        {/* Google Tag Manager */}
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -14,7 +13,6 @@ export default function Document() {
             })(window,document,'script','dataLayer','GTM-MTRDWHQV');`
           }}
         />
-        {/* End Google Tag Manager */}
         {/* Google Analytics 4 */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-J2529PY042"></script>
         <script
@@ -25,10 +23,8 @@ export default function Document() {
               gtag('config', 'G-J2529PY042');`
           }}
         />
-        {/* End Google Analytics 4 */}
       </Head>
       <body>
-        {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-MTRDWHQV"
@@ -37,7 +33,6 @@ export default function Document() {
             style={{ display: "none", visibility: "hidden" }}
           ></iframe>
         </noscript>
-        {/* End Google Tag Manager (noscript) */}
         <Main />
         <NextScript />
       </body>
