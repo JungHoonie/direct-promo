@@ -1,3 +1,9 @@
+declare global {
+  interface Window {
+    dataLayer: any[];
+  }
+}
+
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
