@@ -12,23 +12,31 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
+  // Validate email format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ error: 'Invalid email format' });
+  }
+
   try {
-    // Create a test account if you don't have real credentials
-    const testAccount = await nodemailer.createTestAccount();
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || 'smtp.ethereal.email',
+      host: process.env.SMTP_HOST,
       port: parseInt(process.env.SMTP_PORT || '587'),
       secure: false,
       auth: {
-        user: process.env.SMTP_USER || testAccount.user,
-        pass: process.env.SMTP_PASS || testAccount.pass,
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
       },
     });
 
-    await transporter.sendMail({
-      from: '"DirectPromo Contact" <directpromo@rogers.com>',
-      to: 'directpromo@rogers.com',
-      subject: 'New Contact Form Submission',
+    // Verify SMTP connection
+    await transporter.verify();
+
+    const mailOptions = {
+      from: `"DirectPromo Contact Form" <${process.env.EMAIL_FROM}>`,
+      to: process.env.EMAIL_TO,
+      replyTo: email,
+      subject: `New Contact Form Submission from ${company}`,
       html: `
         <h2>New Contact Form Submission</h2>
         <p><strong>Company:</strong> ${company}</p>
@@ -36,13 +44,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
         <p><strong>Message:</strong></p>
-        <p>${message}</p>
+        <p>${message.replace(/\n/g, '<br>')}</p>
       `,
-    });
+    };
 
+    await transporter.sendMail(mailOptions);
     res.status(200).json({ success: true, message: 'Message sent successfully' });
   } catch (error) {
     console.error('Error sending contact email:', error);
-    res.status(500).json({ error: 'Failed to send message' });
+    res.status(500).json({ 
+      error: 'Failed to send message',
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 } 

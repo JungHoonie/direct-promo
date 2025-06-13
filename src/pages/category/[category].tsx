@@ -91,7 +91,7 @@ export default function CategoryPage() {
                 <Link href={`/product/${product.id}`}>
                   <div className="relative w-full h-48 rounded-xl overflow-hidden">
                     <Image
-                      src={product.image}
+                      src={product.image} 
                       alt={product.name}
                       fill
                       className="object-cover rounded-xl"

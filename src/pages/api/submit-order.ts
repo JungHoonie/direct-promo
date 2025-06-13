@@ -143,10 +143,10 @@ const sendOrderNotification = async (data: OrderData, logoFile: formidable.File 
       try {
         // Verify file exists and is readable
         await fs.promises.access(logoFile.filepath, fs.constants.R_OK);
-        attachments.push({
+      attachments.push({
           filename: sanitizeInput(logoFile.originalFilename || 'company-logo'),
-          content: fs.createReadStream(logoFile.filepath)
-        });
+        content: fs.createReadStream(logoFile.filepath)
+      });
       } catch (error) {
         console.error('Error accessing logo file:', error);
         // Continue without the logo if there's an error
@@ -379,7 +379,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     // Send order notifications with the logo file
     try {
-      await sendOrderNotification(orderData, logoFile);
+    await sendOrderNotification(orderData, logoFile);
     } catch (error) {
       console.error('Error sending notification:', error);
       return res.status(500).json({

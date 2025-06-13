@@ -253,22 +253,22 @@ export default function Home() {
                           <div className="relative w-full h-40 flex items-center justify-center rounded-xl overflow-hidden">
                             {hasImage && (
                               <Image
-                                src={category.image}
-                                alt={category.name}
+                        src={category.image}
+                        alt={category.name}
                                 fill
                                 className="object-contain rounded-xl"
-                              />
+                      />
                             )}
                           </div>
                         )}
-                      </div>
+                    </div>
                       <div className="flex justify-end items-end pt-2">
                         <button className={`${isCustom ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-gray-100 hover:bg-red-600 hover:text-white'} text-gray-900 px-5 py-2 rounded-lg font-semibold shadow transition-colors flex items-center gap-2`}>
                           {isCustom ? 'Contact Us' : 'Shop Now'}
-                        </button>
-                      </div>
+                      </button>
                     </div>
-                  </Link>
+                  </div>
+                </Link>
                 );
               })}
             </div>
@@ -395,24 +395,24 @@ export default function Home() {
                   <label className="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
                   <input name="company" type="text" required className="w-full px-3 py-2 border rounded-md" placeholder="Your company or organization" />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
                   <input name="name" type="text" required className="w-full px-3 py-2 border rounded-md" placeholder="Your name" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
                   <input name="email" type="email" required className="w-full px-3 py-2 border rounded-md" placeholder="you@email.com" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number <span className="text-gray-400 font-normal">(optional)</span></label>
                   <input name="phone" type="tel" className="w-full px-3 py-2 border rounded-md" placeholder="(416) 895-0929" />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
                   <textarea name="message" required rows={4} className="w-full px-3 py-2 border rounded-md" placeholder="Tell us what you&apos;re looking for, or ask a question!" />
-                </div>
-                <button type="submit" className="w-full bg-red-600 text-white py-3 px-6 rounded-md font-medium hover:bg-red-700 transition-colors">Request a Quote</button>
-              </form>
+              </div>
+              <button type="submit" className="w-full bg-red-600 text-white py-3 px-6 rounded-md font-medium hover:bg-red-700 transition-colors">Request a Quote</button>
+            </form>
             ) : (
               <div className="bg-white rounded-lg shadow-md p-8 flex flex-col items-center justify-center space-y-6">
                 <div className="text-green-600 text-3xl mb-2">✓</div>

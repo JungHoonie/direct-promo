@@ -53,7 +53,7 @@ function downloadImage(url, filename) {
     }).on('error', (err) => {
       fs.unlink(filename, () => {}); // Delete the file if there was an error
       reject(err);
-    });
+      });
   });
 }
 
