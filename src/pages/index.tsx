@@ -547,35 +547,17 @@ export default function Home() {
                   <label className="block text-2xl font-black text-gray-900 mb-1">Company Name</label>
                   <input name="company" type="text" required className="w-full px-3 py-2 border rounded-md" placeholder="Your company or organization" />
                 </div>
-<<<<<<< HEAD
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                  <input name="name" type="text" required className="w-full px-3 py-2 border rounded-md" placeholder="Your name" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-=======
                 <div>
                   <label className="block text-2xl font-black text-gray-900 mb-1">Name</label>
                   <input name="name" type="text" required className="w-full px-3 py-2 border rounded-md" placeholder="Your name" />
                 </div>
                 <div>
                   <label className="block text-2xl font-black text-gray-900 mb-1">Email</label>
->>>>>>> 79ca1a5294aecdd79c5a83affdb9d6b460ce97c6
                   <input name="email" type="email" required className="w-full px-3 py-2 border rounded-md" placeholder="you@email.com" />
                 </div>
                 <div>
                   <label className="block text-2xl font-black text-gray-900 mb-1">Phone Number <span className="text-gray-400 font-normal">(optional)</span></label>
                   <input name="phone" type="tel" className="w-full px-3 py-2 border rounded-md" placeholder="(416) 895-0929" />
-<<<<<<< HEAD
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                  <textarea name="message" required rows={4} className="w-full px-3 py-2 border rounded-md" placeholder="Tell us what you&apos;re looking for, or ask a question!" />
-              </div>
-              <button type="submit" className="w-full bg-red-600 text-white py-3 px-6 rounded-md font-medium hover:bg-red-700 transition-colors">Request a Quote</button>
-            </form>
-=======
                 </div>
                 <div>
                   <label className="block text-2xl font-black text-gray-900 mb-1">Message</label>
@@ -583,7 +565,6 @@ export default function Home() {
                 </div>
                 <button type="submit" className="w-full bg-red-600 text-white py-3 px-6 rounded-md font-medium hover:bg-red-700 transition-colors">Request a Quote</button>
               </form>
->>>>>>> 79ca1a5294aecdd79c5a83affdb9d6b460ce97c6
             ) : (
               <div className="bg-white rounded-lg shadow-md p-8 flex flex-col items-center justify-center space-y-6">
                 <div className="text-green-600 text-3xl mb-2">✓</div>
