@@ -11,12 +11,6 @@
   package = "@netlify/plugin-nextjs"
 
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-
-# Function redirects
-[[redirects]]
   from = "/api/contact"
   to = "/.netlify/functions/contact"
   status = 200
@@ -24,4 +18,9 @@
 [[redirects]]
   from = "/api/submit-order"
   to = "/.netlify/functions/submit-order"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
   status = 200 
