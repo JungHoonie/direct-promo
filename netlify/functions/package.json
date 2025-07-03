@@ -1,0 +1,9 @@
+{
+  "name": "directpromo-functions",
+  "version": "1.0.0",
+  "description": "Netlify functions for DirectPromo",
+  "main": "index.js",
+  "dependencies": {
+    "nodemailer": "^6.10.1"
+  }
+} 
