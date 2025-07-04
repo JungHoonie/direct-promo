@@ -8,9 +8,9 @@ if (typeof window !== 'undefined') {
   window.dataLayer = window.dataLayer || [];
   // Monkey-patch push to log all events
   const originalPush = window.dataLayer.push;
-  window.dataLayer.push = function() {
-    console.log('dataLayer push:', arguments[0]);
-    return originalPush.apply(this, arguments);
+  window.dataLayer.push = function(...args) {
+    console.log('dataLayer push:', args[0]);
+    return originalPush.apply(this, args);
   };
 }
 
